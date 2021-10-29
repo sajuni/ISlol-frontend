@@ -24,10 +24,10 @@
                     <a href="#" class="find_text">비밀번호 찾기</a>
                 </li>
                 <li>
-                    <a href="#" class="find_text">아이디 찾기</a>
+                  <a href="#" class="find_text">아이디 찾기</a>
                 </li>
                 <li>
-                    <a href="#" class="find_text">회원가입</a>
+                   <router-link :to="{ name: 'SignUp'}">회원가입</router-link><!-- <a href="#" class="find_text">회원가입</a> -->
                 </li>
             </ul>
         </div>

@@ -1,13 +1,12 @@
 module.exports = {
+    lintOnSave: false,
     devServer: {
         overlay: false,
-        devServer: {
-            proxy: {
-                '/api': {
-                    target: 'http://localhost:8180',
-                    changeOrigin: true
-                }
-            },
+        proxy: {
+            '/api': {
+                target: 'http://localhost:8180',
+                changeOrigin: true
+            }
         }
     }
 }

@@ -1,28 +1,23 @@
 import Vue from "vue";
-import VueRouter from "vue-router";
+import Router from "vue-router";
 
 const LoginOn = () => import('@/views/session/LoginOn');
+const SignUp = () => import('@/views/session/SignUp');
 
-Vue.use(VueRouter);
+Vue.use(Router);
 
-const routes = [
-  {
-    path: "/",
-    name: "LoginOn",
-    component: LoginOn,
-  },
-  {
-    path: "/about",
-    name: "About",
-    component: () =>
-      import(/* webpackChunkName: "about" */ "../views/About.vue"),
-  },
-];
-
-const router = new VueRouter({
+export default new Router({
   mode: "history",
-  base: process.env.BASE_URL,
-  routes,
+  routes: [
+    {
+      path: "/",
+      name: "LoginOn",
+      component: LoginOn,
+    },
+    {
+      path: "/sginup",
+      name: "SignUp",
+      component: SignUp
+    }
+  ]
 });
-
-export default router;
