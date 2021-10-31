@@ -1,8 +1,9 @@
 import Vue from "vue";
 import Router from "vue-router";
 
-const LoginOn = () => import('@/views/session/LoginOn');
-const SignUp = () => import('@/views/session/SignUp');
+const LoginOn = () => import('@/views/session/LoginOn')
+const SignUp = () => import('@/views/session/SignUp')
+const Main = () => import('@/views/Main')
 
 Vue.use(Router);
 
@@ -18,6 +19,11 @@ export default new Router({
       path: "/sginup",
       name: "SignUp",
       component: SignUp
+    },
+    {
+      path: "/main",
+      name: "Main",
+      component: Main
     }
   ]
 });

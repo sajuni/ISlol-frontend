@@ -9,11 +9,20 @@
                     <li class="panel_item">
                         <div class="panel_inner">
                             <div class="id_pw_wrap">
-                                <b-form-input class="login_form" placeholder="아이디"></b-form-input>
-                                <b-form-input class="login_form" placeholder="비밀번호"></b-form-input>
+                                <b-form-input 
+                                v-model="memberEmail"
+                                class="login_form" 
+                                placeholder="아이디">
+                                </b-form-input>
+                                <b-form-input
+                                v-model="memberPwd" 
+                                class="login_form" 
+                                type="password"
+                                placeholder="비밀번호">
+                                </b-form-input>
                             </div>
                             <div class="btn_login">
-                                <b-button id="btn_login" variant="success" size="lg">로그인</b-button>
+                                <b-button id="btn_login" variant="success" size="lg" @click="submit">로그인</b-button>
                             </div>
                         </div>
                     </li>
@@ -55,7 +64,7 @@ width: 550px !important;
 }
 .login_form {
     padding: 15px !important;
-}
+} 
 .btn_login {
     margin-top: 40px;
 }
@@ -83,3 +92,23 @@ width: 550px !important;
     padding-left: 28px;
 }
 </style>
+
+<script>
+export default {
+    data() {
+        return {
+            memberEmail: "",
+            memberPwd: "",
+        }
+    },
+    methods: {
+        submit() {
+            let member = {
+                memberEmail: this.memberEmail,
+                memberPwd: this.memberPwd
+            }
+            this.$store.dispatch("auth/signin", member);
+        }
+    },
+}
+</script>

@@ -1,3 +1,4 @@
 export default {
-    BASE_URL: '/api'
+    BASE_URL: '/api',
+    AUTH_URL: '/user/auth/'
 }

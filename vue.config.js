@@ -1,4 +1,15 @@
+var path = require('path')
+
 module.exports = {
+    configureWebpack: {
+        resolve: {
+            alias: {
+                '@': path.resolve(__dirname, 'src/'),
+                Api: path.resolve(__dirname, 'src/api/'),
+            },
+            extensions: ['*', '.js', '.vue', '.json']
+        },
+    },
     lintOnSave: false,
     devServer: {
         overlay: false,

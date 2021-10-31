@@ -5,10 +5,16 @@
       <router-link to="/about">About</router-link> 
     </div> -->
     <router-view />
+    <notifications 
+      group="loggedIn" 
+      position="top right"
+      animation-type="velocity"
+    />
   </div>
 </template>
 
 <style lang="scss">
+
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
@@ -31,6 +37,5 @@
     }
   }
 }
-
 
 </style>
