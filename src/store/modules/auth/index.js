@@ -60,6 +60,9 @@ const actions = {
             .catch(err => {
                 console.log('error', err);
             })
+    },
+    logout(context) {
+        context.commit('logout');
     }
 }
 
@@ -68,7 +71,7 @@ const mutations = {
     async signinSuccess(state, res) {
         if (res.resultCode === '0000') {
             state.isWrongPassword = false;
-            
+
             const data = res.data;
 
             state.user = new User(data.id, data.pwd, data.userNm, data.roles[0]);
@@ -76,7 +79,7 @@ const mutations = {
             state.refreshToken = data.refreshToken;
             state.type = data.type;
 
-            router.push({name: "Main"});
+            router.push({ name: "Main" });
 
             setTimeout(function() {
                 Vue.notify({
@@ -94,7 +97,7 @@ const mutations = {
     signupSuccess(state, res) {
         if (res.resultCode === '0000') {
 
-            router.push({ name: "LoginOn"});
+            router.push({ name: "LoginOn" });
 
             Vue.notify({
                 group: 'loggedIn',
@@ -102,6 +105,20 @@ const mutations = {
                 text: '계정을 생성했습니다.'
             });
         }
+    },
+    logout(state) {
+        state.user = null;
+        state.token = null;
+        state.refreshToken = null;
+        state.type = null;
+
+        router.push({ name: 'LoginOn' });
+
+        Vue.notify({
+            group: "loggedIn",
+            type: "error",
+            text: "저장에 실패했습니다."
+        });
     }
 }
 

@@ -9,12 +9,22 @@
 				<li><a href="javascript:;">메뉴4</a></li>
 			</ul>
 		</div>
+		<b-btn v-if="this.$store.state.auth.user == null">로그인</b-btn>
+		<b-btn v-if="this.$store.state.auth.user != null" @click="logout()">로그아웃</b-btn>
 	</header>
 </template>
 
 <script>
 export default {
 	
+	mounted() {
+	
+	},
+	methods: {
+		logout() {
+			this.$store.dispatch('auth/logout');
+		}
+	},
 }
 </script>
 

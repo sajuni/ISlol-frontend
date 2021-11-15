@@ -1,23 +1,21 @@
 <template>
   <div id="app">
-    <Header />
-    <router-view />
-    <notifications 
-      group="loggedIn" 
-      position="top right"
-      animation-type="velocity"
-    />
-    <Footer />
+    <the-layout>
+      <router-view />
+      <notifications 
+        group="loggedIn" 
+        position="top right"
+        animation-type="velocity"
+      />
+    </the-layout>
   </div>
 </template>
 
 <script>
-import Header from '@/views/common/Header.vue'
-import Footer from '@/views/common/Footer.vue'
+import TheLayout from '@/views/layouts/TheLayout.vue'
+
 export default {
-  components: {
-     Header,  Footer
-  },
+  components: { TheLayout }
 }
 </script>
 
