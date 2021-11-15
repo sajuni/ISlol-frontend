@@ -6,10 +6,11 @@
 
 <script>
 import DefaultLayout from '@/views/layouts/DefaultLayout.vue';
+import LoginOn from '@/views/session/LoginOn.vue';
 
 export default {
   name: 'TheLayout',
-  components: { DefaultLayout },
+  components: { DefaultLayout, LoginOn },
   computed: {
     layout() {
       const layout = this.$route.meta.layout || 'DefaultLayout';

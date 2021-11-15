@@ -16,7 +16,7 @@ export default new Router({
             path: "/",
             name: "LoginOn",
             component: LoginOn,
-            meta: { layout: "Login" }
+            meta: { layout: "LoginOn" }
         },
         {
             path: "/sginup",
