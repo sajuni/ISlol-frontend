@@ -21,7 +21,8 @@ export default new Router({
         {
             path: "/sginup",
             name: "SignUp",
-            component: SignUp
+            component: SignUp,
+            meta: { layout: "SignUp" }
         },
         {
             path: "/main",

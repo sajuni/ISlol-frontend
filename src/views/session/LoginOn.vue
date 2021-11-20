@@ -36,7 +36,7 @@
                   <a href="#" class="find_text">아이디 찾기</a>
                 </li>
                 <li>
-                   <router-link :to="{ name: 'SignUp'}">회원가입</router-link><!-- <a href="#" class="find_text">회원가입</a> -->
+                   <router-link :to="{ name: 'SignUp'}">회원가입</router-link>
                 </li>
             </ul>
         </div>

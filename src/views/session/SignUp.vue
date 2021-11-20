@@ -39,6 +39,7 @@
 			</b-button>
 		</b-card>
 	</div>
+	
 </template>
 
 <script>
