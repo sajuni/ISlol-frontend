@@ -8,6 +8,9 @@ const authApi = {
     },
     signin: (memberEmail, memberPwd) => {
         return common.post(common.config.AUTH_URL + 'signin', { memberEmail, memberPwd }, false);
+    },
+    refreshToken: (token) => {
+        return common.post(common.config.AUTH_URL + 'refreshtoken', token, false);
     }
 }
 

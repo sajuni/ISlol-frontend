@@ -14,7 +14,7 @@
 					</b-navbar-brand>
 					<b-navbar-nav>
 						<b-nav-item class="px-4">
-							Home
+							<router-link :to="{ name: 'Main' }">Home</router-link>
 						</b-nav-item>
 						<b-nav-item class="px-4">
 							대회영상
@@ -23,7 +23,7 @@
 							명예의 전당
 						</b-nav-item>
 						<b-nav-item-dropdown class="px-4" text="커뮤니티">
-							<b-dropdown-item href="#">공지사항</b-dropdown-item>
+							<b-dropdown-item href="#"><router-link :to="{ name: 'NoticeList' }">공지사항</router-link></b-dropdown-item>
 							<b-dropdown-item href="#">ISLOL Photo</b-dropdown-item>
 						</b-nav-item-dropdown>
 						<b-nav-item class="px-4">
@@ -45,10 +45,14 @@
 
 <script>
 export default {
-	
-	mounted() {
-	
-	},
+	data() {
+        return {
+           
+        }
+    },
+// 	mounted() {
+// 		console.log(this.$router)
+// 	},
 	methods: {
 		logout() {
 			this.$store.dispatch('auth/logout');

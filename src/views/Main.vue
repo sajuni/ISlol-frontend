@@ -28,3 +28,27 @@
            	 width:40%;
            	 box-sizing: border-box;}
 </style>
+
+<script>
+export default {
+	data() {
+		return {
+			pageNum: 0,
+			itemPerPage: 5,
+			noticeList: {}
+		}
+	},
+	methods: {
+		
+	},
+	mounted() {
+		let pageable = {
+			pageNum: this.pageNum,
+			itemPerPage: this.itemPerPage
+		}
+		this.$store.dispatch("notice/getAllList", pageable).then(res => {
+			this.noticeList = this.$store.state.notice.noticeList;
+		})
+	}
+}
+</script>

@@ -2,12 +2,12 @@
   <div id="app">
     <the-layout>
       <router-view />
-      <notifications 
-        group="loggedIn" 
-        position="top right"
-        animation-type="velocity"
-      />
     </the-layout>
+    <notifications 
+      group="loggedIn" 
+      position="top right"
+      animation-type="velocity"
+    />
   </div>
 </template>
 
@@ -34,4 +34,6 @@ dl, ol, ul {
   padding: 0;
 }
 a:hover { color: black !important}
+a:visited { color: black; text-decoration: none;}
+a:hover { color: blue; text-decoration: underline;}
 </style>

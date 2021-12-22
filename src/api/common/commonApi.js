@@ -21,10 +21,20 @@ class apiCommon {
             config => {
                 if (config.url == '/user/auth/refreshtoken') {
                     const refreshToken = store.getters['auth/getRefreshToken'];
-                    config.headers['Authorization'] = 'Bearer ' + refreshToken;
+                    const storageRefreshToken = localStorage.getItem('refreshToken');
+                    if (refreshToken != null) {
+                        config.headers['Authorization'] = 'Bearer ' + refreshToken;
+                    } else {
+                        config.headers['Authorization'] = 'Bearer ' + storageRefreshToken; 
+                    }
                 } else {
                     const token = store.getters['auth/getToken'];
-                    config.headers['Authorization'] = 'Bearer ' + token;
+                    const storageToken = localStorage.getItem('token');
+                    if (token != null) {
+                        config.headers['Authorization'] = 'Bearer ' + token;
+                    } else {
+                        config.headers['Authorization'] = 'Bearer ' + storageToken; 
+                    }
                 }
                 return config;
             },

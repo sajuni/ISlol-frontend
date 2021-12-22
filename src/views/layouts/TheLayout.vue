@@ -14,7 +14,11 @@ export default {
     components: { DefaultLayout, LoginOn, SignUp },
     computed: {
         layout() {
-            const layout = this.$route.meta.layout || 'DefaultLayout';
+            let layout = this.$route.meta.layout || 'DefaultLayout';
+            if(this.$route.path == '/') {
+                layout = 'LoginOn';
+                return layout;
+            }
             return layout;
         }
     }

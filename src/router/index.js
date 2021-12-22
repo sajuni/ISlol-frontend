@@ -7,27 +7,40 @@ const SignUp = () =>
     import ('@/views/session/SignUp')
 const Main = () =>
     import ('@/views/Main')
+const NoticeList = () => import ('@/views/notice/List')
 
 Vue.use(Router);
 
 export default new Router({
     mode: "history",
+    redirect: '/',
     routes: [{
             path: "/",
             name: "LoginOn",
             component: LoginOn,
-            meta: { layout: "LoginOn" }
+            meta: {
+                layout: "LoginOn",
+                requiresAuth: true,
+            }
         },
         {
             path: "/sginup",
             name: "SignUp",
             component: SignUp,
-            meta: { layout: "SignUp" }
+            meta: {
+                layout: "SignUp",
+                requiresAuth: true,
+            }
         },
         {
             path: "/main",
             name: "Main",
-            component: Main
+            component: Main,
+        },
+        {
+            path: "/notice/list",
+            name: "NoticeList",
+            component: NoticeList
         }
     ]
 });

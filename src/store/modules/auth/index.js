@@ -63,7 +63,22 @@ const actions = {
     },
     logout(context) {
         context.commit('logout');
-    }
+    },
+    clear(context) {
+        context.commit('clear');
+    },
+    setData(context) {
+        context.commit('setData');
+    },
+    refreshToken(context, payload) {
+        return authApi.refreshToken(payload)
+            .then(response => {
+                context.commit('refreshToken', response);
+            }, error => {
+                console.log('error', error);
+            })
+    },
+    
 }
 
 // mutations
@@ -74,20 +89,24 @@ const mutations = {
 
             const data = res.data;
 
-            state.user = new User(data.id, data.pwd, data.userNm, data.roles[0]);
+            state.user = new User(data.email, data.userNm, data.roles[0], data.addr);
             state.token = data.token;
             state.refreshToken = data.refreshToken;
             state.type = data.type;
 
+            localStorage.user = JSON.stringify(state.user);
+            localStorage.token = state.token;
+            localStorage.refreshToken = state.refreshToken;
+            localStorage.type = state.type;
+
             router.push({ name: "Main" });
 
-            setTimeout(function() {
-                Vue.notify({
-                    group: 'loggedIn',
-                    type: 'success',
-                    text: '로그인에 성공했습니다.'
-                });
-            }, 1500);
+            Vue.notify({
+                group: 'loggedIn',
+                type: 'success',
+                text: '로그인에 성공했습니다.'
+            });
+
         } else if (res.resultCode === '9999') { //계정 오류
             state.isWrongPassword = true;
         } else { //통신 오류
@@ -112,14 +131,56 @@ const mutations = {
         state.refreshToken = null;
         state.type = null;
 
+        Vue.notify({
+            group: 'loggedIn',
+            type: 'success',
+            text: '로그아웃 완료!!'
+        });
+
+        localStorage.clear();
         router.push({ name: 'LoginOn' });
 
-        Vue.notify({
-            group: "loggedIn",
-            type: "error",
-            text: "저장에 실패했습니다."
-        });
-    }
+    },
+    clear(state) {
+        state.user = null;
+        state.token = null;
+        state.refreshToken = null;
+        state.type = null;
+        localStorage.clear();
+    },
+    setData(state) {
+        const data = JSON.parse(localStorage.getItem('user'));
+        state.user = new User(data.email, data.userNm, data.roles[0], data.addr);
+        state.token = localStorage.getItem('token');
+        state.refreshToken = localStorage.getItem('refreshToken');
+        state.type = localStorage.getItem('type');
+    },
+    refreshToken(state, response) {
+        if (response.resultCode === '0000' && response.data !== '') {
+            console.log(response)
+            const data = response.data;
+            console.log(data)
+            // state.user = new User(data.email, data.userNm, data.roles[0], data.addr);
+            state.token = data.token;
+            state.refreshToken = data.refreshToken;
+            // state.type = data.type;
+
+            // localStorage.user = JSON.stringify(state.user);
+            localStorage.token = state.token;
+            localStorage.refreshToken = state.refreshToken;
+            // localStorage.type = state.type;
+        }
+        if (response.resultCode === 'error') {
+            alert('다시 로그인 해주세요');
+            state.user = null;
+            state.token = null;
+            state.refreshToken = null;
+            state.type = null;
+            localStorage.clear();
+
+            router.push({ name: 'LoginOn' });
+        }
+    },
 }
 
 export default {
