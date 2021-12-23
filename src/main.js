@@ -15,7 +15,7 @@ Vue.use(IconsPlugin)
 Vue.config.productionTip = false;
 Vue.use(Notifications, { velocity });
 
-router.beforeEach(async (to, from, next) => {
+router.beforeEach((to, from, next) => {
 	if (to.matched.some(record => !record.meta.requiresAuth)) {
 		if (to.fullPath !== '/') {
 			// if (!store.getters['auth/getUser'] || !store.getters['auth/getToken']) {

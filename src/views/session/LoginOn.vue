@@ -16,9 +16,10 @@
                                 </b-form-input>
                                 <b-form-input
                                 v-model="memberPwd" 
-                                class="login_form" 
+                                class="login_form mt-2" 
                                 type="password"
-                                placeholder="비밀번호">
+                                placeholder="비밀번호"
+                                @keyup.enter="submit">
                                 </b-form-input>
                             </div>
                             <div class="btn_login">

@@ -3,7 +3,7 @@
 		<div class="lnb_menu">
 			<div class="global_menu">
 				<ul class="global_menu_list">
-					<li class="global_menu_item px-4" id="two"><a href="#">회원정보</a></li>
+					<li class="global_menu_item px-4" id="two"><router-link :to="{ name: 'MemberInfo' }">회원정보</router-link></li>
 					<li class="global_menu_item px-4"><a href="#" @click="logout()">로그아웃</a></li>
 				</ul>
 			</div>

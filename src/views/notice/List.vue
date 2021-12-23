@@ -4,7 +4,7 @@
             <h1 class="title">공지사항</h1>
             <p class="text"><b>공지사항 입니다.</b></p>
         </div>
-        <div class="table">
+        <div class="content">
             <b-table 
                 :items="notieList"
                 :fields="noticeHeader" 
@@ -16,7 +16,7 @@
                 </template>
             </b-table>
         </div>
-        <div class="pagiNation">
+        <div class="page_nation">
             <b-pagination
                 align="center"
                 v-model="currentPage"
@@ -35,13 +35,14 @@
     font-weight: 900;
 }
 .text { margin: 60px; }
-.table 
+.content 
 { 
     width: 100%;
     max-width: 1120px;
     margin: 0 auto;
+    text-align: -webkit-center;
 }
-.pagiNation {
+.page_nation {
     margin: 50px 0 100px 0;
 }
 </style>
