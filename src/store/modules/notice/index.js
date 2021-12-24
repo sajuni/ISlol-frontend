@@ -1,32 +1,48 @@
 import { noticeApi } from 'Api';
 
 const state = {
-    noticeList: {}
+    noticeList: [],
+    noticeListEndLength: 0
 }
 
 const getters = {
     getNoticeList: state => {
         return state.noticeList;
+    },
+    getNoticeListEndLength: state => {
+        return state.noticeListEndLength;
     }
 }
 
 const actions = {
-    getAllList(context, pageable) {
-        return noticeApi.getAllList(pageable)
+    getList(context, pageable) {
+        return noticeApi.getList(pageable)
             .then(res => {
-                context.commit('getAllListSuccess', res);
+                context.commit('getListSuccess', res);
             }) 
             .catch(err => {
                 console.log('error', err);
             })
+    },
+    stateClear(context, payload) {
+        return context.commit('stateClear');
     }
 }
 
 const mutations = {
-    getAllListSuccess(state, res) {
+    getListSuccess(state, res) {
         if (res.resultCode === '0000') {
-            state.noticeList = res.data.noticeList.content;
+            if (state.noticeList.length > 0) {
+                state.noticeList.push(...res.data.noticeList.content);
+            } else {
+                state.noticeList = res.data.noticeList.content;
+            }
+            state.noticeListEndLength = res.data.noticeList.totalElements;
         }
+    },
+    stateClear(state) {
+        state.noticeList = [];
+        state.noticeListEndLength = 0;
     }
 }
 

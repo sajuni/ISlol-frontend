@@ -6,7 +6,7 @@
         </div>
         <div class="content">
             <b-table 
-                :items="notieList"
+                :items="paginatedData"
                 :fields="noticeHeader" 
                 bordered
                 hover
@@ -23,6 +23,7 @@
                 :total-rows="rows"
                 :per-page="perPage"
                 aria-controls="my-table"
+                @page-click="pageClick"
             ></b-pagination>
         </div>
     </div>
@@ -50,28 +51,64 @@
 export default {
     data() {
         return {
-            perPage: 5,
+            perPage: 10,
             currentPage: 1,
             noticeHeader: [
                 { noticeSeq: "번호" }, 
                 { content: "제목" }, 
                 { regDate: "등록일" }
             ],
+            noticeFullList: [],
             notieList: [],
+            pageSize: 10,
+            pageNum: 0,
+            itemPerPage: 100,
         }
     },
     mounted() {
-        this.notieList = this.$store.getters['notice/getNoticeList'];
+        this.noticeFullList = this.$store.getters['notice/getNoticeList'];
     },
     methods: {
         goDetail(val) {
-            console.log(val);
+        },
+        pageClick(button, page) {
+            this.pageNum = page - 1;
+
+            if (page > this.pageCount()-2) {
+                this.itemPerPage += 100;
+                let pageable = {
+                    pageNum: this.noticeFullList.length,
+                    itemPerPage: this.itemPerPage
+                }
+                this.$store.dispatch("notice/getList", pageable)
+            }
+
+        },
+        pageCount() {
+            let listLeng = this.noticeFullList.length;
+            let listSize = this.pageSize;
+            let page = Math.floor(listLeng / listSize);
+            return page;
         }
     },
     computed: {
         rows() {
-            return this.notieList.length;
-        }
+            return this.$store.getters['notice/getNoticeListEndLength'];
+        },
+        // pageCount() {
+            // let listLeng = this.noticeFullList.length;
+            // let listSize = this.pageSize;
+            // let page = Math.floor(listLeng / listSize);
+            // this.cuerrentMaxPage();
+            // console.log(page);
+            // if (listLeng % listSize > 0) page += 1;
+            // return page;
+        // },
+        paginatedData() {
+            const start = this.pageNum * this.pageSize,
+                  end = start + this.pageSize;
+            return this.noticeFullList.slice(start, end);      
+        }        
     }
 }
 </script>

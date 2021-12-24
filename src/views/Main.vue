@@ -34,7 +34,7 @@ export default {
 	data() {
 		return {
 			pageNum: 0,
-			itemPerPage: 5,
+			itemPerPage: 100,
 			noticeList: {}
 		}
 	},
@@ -42,11 +42,12 @@ export default {
 		
 	},
 	mounted() {
+		this.$store.dispatch("notice/stateClear");
 		let pageable = {
 			pageNum: this.pageNum,
 			itemPerPage: this.itemPerPage
 		}
-		this.$store.dispatch("notice/getAllList", pageable).then(res => {
+		this.$store.dispatch("notice/getList", pageable).then(res => {
 			this.noticeList = this.$store.state.notice.noticeList;
 		})
 	}

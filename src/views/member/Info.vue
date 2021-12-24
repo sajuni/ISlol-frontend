@@ -76,7 +76,6 @@ export default {
     },
     mounted() {
         const user = this.$store.getters['auth/getUser'];
-        console.log(user)
         this.form.email = user.email;
         this.form.addr = user.addr;
     }
