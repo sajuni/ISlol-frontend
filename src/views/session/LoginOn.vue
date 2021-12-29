@@ -43,56 +43,6 @@
         </div>
     </div>
 </template>
-<style>
-.container {
-width: 550px !important;
-}
-.header {
-    padding-bottom: 69px;
-}
-.panel_wrap {
-    position: relative;
-    z-index: 3;
-    margin-top: -8px;
-}
-.panel_item { 
-    border: 1px solid #c6c6c6;
-    border-radius: 6px;
-    background-color: #fff;
-}
-.panel_inner {
-    padding: 24px;
-}
-.login_form {
-    padding: 15px !important;
-} 
-.btn_login {
-    margin-top: 40px;
-}
-#btn_login {
-    width: 100%;
-}
-.find_wrap {
-    padding: 24px 0 40px; 
-    text-align: center;
-}
-.find_wrap .find_text {
-    display: inline-block;
-    font-size: 16px;
-    line-height: 18px;
-    text-decoration: none;
-    color: #888;
-}
-
-.find_wrap li {
-    position: relative;
-    display: inline-block;
-}
-
-.find_wrap li+li, .relogin_find_wrap li+li {
-    padding-left: 28px;
-}
-</style>
 
 <script>
 export default {

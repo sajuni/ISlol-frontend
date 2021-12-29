@@ -1,5 +1,6 @@
 import Vue from "vue";
 import Router from "vue-router";
+import Notice from "@/router/noitce";
 
 const LoginOn = () =>
     import ('@/views/session/LoginOn')
@@ -7,7 +8,6 @@ const SignUp = () =>
     import ('@/views/session/SignUp')
 const Main = () =>
     import ('@/views/Main')
-const NoticeList = () => import ('@/views/notice/List')
 const MemberInfo = () => import ('@/views/member/Info')
 
 Vue.use(Router);
@@ -39,14 +39,10 @@ export default new Router({
             component: Main,
         },
         {
-            path: "/notice/list",
-            name: "NoticeList",
-            component: NoticeList
-        },
-        {
             path: "/member/info",
             name: "MemberInfo",
             component: MemberInfo
-        }
+        },
+        ...Notice
     ]
 });

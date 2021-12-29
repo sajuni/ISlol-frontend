@@ -1,14 +1,15 @@
-import Vue from "vue";
-import App from "@/App.vue";
-import router from "@/router";
+import Vue from "vue"
+import App from "@/App.vue"
+import router from "@/router"
 import { BootstrapVue, IconsPlugin } from 'bootstrap-vue'
 import '@/assets/scss/common.scss'
 import 'bootstrap/dist/css/bootstrap.css'
 import 'bootstrap-vue/dist/bootstrap-vue.css'
 import Notifications from 'vue-notification'
 import velocity from 'velocity-animate'
-
-import { store } from "@/store/store";
+import '@/plugins/global-components'
+import { store } from "@/store/store"
+import '@/assets/scss/_index.scss'
 
 Vue.use(BootstrapVue)
 Vue.use(IconsPlugin)

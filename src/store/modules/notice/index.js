@@ -32,12 +32,16 @@ const actions = {
 const mutations = {
     getListSuccess(state, res) {
         if (res.resultCode === '0000') {
+            state.noticeListEndLength = res.data.noticeList.totalElements;
+            if (res.data.noticeList.totalPages == 1) {
+                state.noticeList.splice(0, state.noticeList.length, ...res.data.noticeList.content);
+                return;
+            }
             if (state.noticeList.length > 0) {
                 state.noticeList.push(...res.data.noticeList.content);
             } else {
                 state.noticeList = res.data.noticeList.content;
             }
-            state.noticeListEndLength = res.data.noticeList.totalElements;
         }
     },
     stateClear(state) {

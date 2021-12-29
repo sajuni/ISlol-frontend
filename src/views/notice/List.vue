@@ -1,21 +1,21 @@
 <template>
     <div>
-        <div class="title_wrap">
-            <h1 class="title">공지사항</h1>
-            <p class="text"><b>공지사항 입니다.</b></p>
-        </div>
-        <div class="content">
-            <b-table 
-                :items="paginatedData"
-                :fields="noticeHeader" 
-                bordered
-                hover
-                >
-                <template v-slot:cell(content)="data">
-                    <a href="#" @click="goDetail(data.item.noticeSeq)">{{data.item.content}}</a>
-                </template>
-            </b-table>
-        </div>
+        <t-area>
+            <template v-slot:title>공지사항</template>
+            <template v-slot:text>공지사항 입니다.</template>
+            <template v-slot:content>
+                <b-table 
+                    :items="paginatedData"
+                    :fields="noticeHeader" 
+                    bordered
+                    hover
+                    >
+                    <template v-slot:cell(content)="data">
+                        <a href="javascript:void(0)" @click="goDetail(data.item.noticeSeq)">{{data.item.content}}</a>
+                    </template>
+                </b-table>
+            </template>
+        </t-area>
         <div class="page_nation">
             <b-pagination
                 align="center"
@@ -28,25 +28,6 @@
         </div>
     </div>
 </template>
-<style>
-.title_wrap { margin: 100px; }
-.title 
-{ 
-    font-size: 56px; 
-    font-weight: 900;
-}
-.text { margin: 60px; }
-.content 
-{ 
-    width: 100%;
-    max-width: 1120px;
-    margin: 0 auto;
-    text-align: -webkit-center;
-}
-.page_nation {
-    margin: 50px 0 100px 0;
-}
-</style>
 <script>
 export default {
     data() {
@@ -58,7 +39,6 @@ export default {
                 { content: "제목" }, 
                 { regDate: "등록일" }
             ],
-            noticeFullList: [],
             notieList: [],
             pageSize: 10,
             pageNum: 0,
@@ -66,26 +46,53 @@ export default {
         }
     },
     mounted() {
-        this.noticeFullList = this.$store.getters['notice/getNoticeList'];
+        this.notieList = this.$store.getters['notice/getNoticeList'];
+        if (!this.notieList.length) {
+            let pageable = {
+                pageNum: this.pageNum,
+                itemPerPage: this.itemPerPage
+            }
+            this.$store.dispatch("notice/getList", pageable).then(() => {
+                this.notieList = this.$store.getters['notice/getNoticeList'];
+            })
+        }
     },
     methods: {
-        goDetail(val) {
+        goDetail(data) {
+            this.$router.push( { name: "Detail", query: { id: data }} )
         },
         pageClick(button, page) {
-            this.pageNum = page - 1;
-
-            if (page > this.pageCount()-2) {
-                this.itemPerPage += 100;
-                let pageable = {
-                    pageNum: this.noticeFullList.length,
-                    itemPerPage: this.itemPerPage
-                }
-                this.$store.dispatch("notice/getList", pageable)
+            this.currentPage = page;
+            let maxBtn = button.target.getAttribute('aria-label');
+            let maxflag = 'Go to last page';
+            if (maxBtn == maxflag) {
+                this.maxPageClick();
+                return;
             }
+            if (page > this.pageCount()-2) {
+                if (this.pageCount() > this.pageNum*10) {
+                    this.pageNum++;
+                    let pageable = {
+                        pageNum: this.pageNum,
+                        itemPerPage: this.itemPerPage
+                    }
+                    this.$store.dispatch("notice/getList", pageable);
+                }
+            }
+        },
+        maxPageClick() {
+            let maxListLeng = this.$store.getters['notice/getNoticeListEndLength'];
+            this.pageNum = 3;
+            let pageable = {
+                pageNum: 0,
+                itemPerPage: maxListLeng
+            }
+            this.$store.dispatch("notice/getList", pageable);
 
+            return;
         },
         pageCount() {
-            let listLeng = this.noticeFullList.length;
+            let listLeng = this.notieList.length;
             let listSize = this.pageSize;
             let page = Math.floor(listLeng / listSize);
             return page;
@@ -95,19 +102,10 @@ export default {
         rows() {
             return this.$store.getters['notice/getNoticeListEndLength'];
         },
-        // pageCount() {
-            // let listLeng = this.noticeFullList.length;
-            // let listSize = this.pageSize;
-            // let page = Math.floor(listLeng / listSize);
-            // this.cuerrentMaxPage();
-            // console.log(page);
-            // if (listLeng % listSize > 0) page += 1;
-            // return page;
-        // },
         paginatedData() {
-            const start = this.pageNum * this.pageSize,
+            const start = (this.currentPage - 1) * this.pageSize,
                   end = start + this.pageSize;
-            return this.noticeFullList.slice(start, end);      
+            return this.notieList.slice(start, end);      
         }        
     }
 }

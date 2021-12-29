@@ -157,9 +157,7 @@ const mutations = {
     },
     refreshToken(state, response) {
         if (response.resultCode === '0000' && response.data !== '') {
-            console.log(response)
             const data = response.data;
-            console.log(data)
             // state.user = new User(data.email, data.userNm, data.roles[0], data.addr);
             state.token = data.token;
             state.refreshToken = data.refreshToken;

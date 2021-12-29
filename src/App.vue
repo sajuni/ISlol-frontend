@@ -19,21 +19,3 @@ export default {
 }
 </script>
 
-<style>
-html,body{padding:0; margin:0;}
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin:0; padding:0;
-}
-dl, ol, ul {
-  list-style: none;
-  padding: 0;
-}
-a:hover { color: black !important}
-a:visited { color: black; text-decoration: none;}
-a:hover { color: blue; text-decoration: underline;}
-</style>
