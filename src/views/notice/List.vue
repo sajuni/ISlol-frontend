@@ -7,12 +7,18 @@
                 <b-table 
                     :items="paginatedData"
                     :fields="noticeHeader" 
-                    bordered
+                    :style="'text-align: center;'"
                     hover
                     >
                     <template v-slot:cell(content)="data">
                         <a href="javascript:void(0)" @click="goDetail(data.item.noticeSeq)">{{data.item.content}}</a>
                     </template>
+                    <template #table-colgroup>
+                        <col :style="{ width: '5%' }">
+                        <col :style="{ width: '70%' }">
+                        <col :style="{ width: '12%' }">
+                        <col :style="{ width: '13%' }">
+                     </template>
                 </b-table>
             </template>
         </t-area>
@@ -42,7 +48,11 @@ export default {
             noticeHeader: [
                 { noticeSeq: "번호" }, 
                 { content: "제목" }, 
-                { regDate: "등록일" }
+                { regDate: "등록일" },
+                { 
+                    key: "member.memberName",
+                    label: '작성자',
+                }
             ],
             notieList: [],
             currentPage: 1,
