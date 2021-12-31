@@ -47,7 +47,7 @@ export default {
 			pageNum: this.pageNum,
 			itemPerPage: this.itemPerPage
 		}
-		this.$store.dispatch("notice/getList", pageable).then(res => {
+		this.$store.dispatch("notice/getList", pageable).then(() => {
 			this.noticeList = this.$store.state.notice.noticeList;
 		})
 	}

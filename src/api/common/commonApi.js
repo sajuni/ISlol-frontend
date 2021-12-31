@@ -21,19 +21,13 @@ class apiCommon {
             config => {
                 if (config.url == '/user/auth/refreshtoken') {
                     const refreshToken = store.getters['auth/getRefreshToken'];
-                    const storageRefreshToken = localStorage.getItem('refreshToken');
                     if (refreshToken != null) {
                         config.headers['Authorization'] = 'Bearer ' + refreshToken;
-                    } else {
-                        config.headers['Authorization'] = 'Bearer ' + storageRefreshToken; 
                     }
                 } else {
                     const token = store.getters['auth/getToken'];
-                    const storageToken = localStorage.getItem('token');
                     if (token != null) {
                         config.headers['Authorization'] = 'Bearer ' + token;
-                    } else {
-                        config.headers['Authorization'] = 'Bearer ' + storageToken; 
                     }
                 }
                 return config;

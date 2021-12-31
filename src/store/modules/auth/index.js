@@ -67,9 +67,9 @@ const actions = {
     clear(context) {
         context.commit('clear');
     },
-    setData(context) {
-        context.commit('setData');
-    },
+    // setData(context) {
+    //     context.commit('setData');
+    // },
     refreshToken(context, payload) {
         return authApi.refreshToken(payload)
             .then(response => {
@@ -83,7 +83,7 @@ const actions = {
 
 // mutations
 const mutations = {
-    async signinSuccess(state, res) {
+    signinSuccess(state, res) {
         if (res.resultCode === '0000') {
             state.isWrongPassword = false;
 
@@ -94,12 +94,14 @@ const mutations = {
             state.refreshToken = data.refreshToken;
             state.type = data.type;
 
-            localStorage.user = JSON.stringify(state.user);
-            localStorage.token = state.token;
-            localStorage.refreshToken = state.refreshToken;
-            localStorage.type = state.type;
-
+            // localStorage.user = JSON.stringify(state.user);
+            // localStorage.token = state.token;
+            // localStorage.refreshToken = state.refreshToken;
+            // localStorage.type = state.type;
+           
+        setTimeout(() => {
             router.push({ name: "Main" });
+        }, 100);
 
             Vue.notify({
                 group: 'loggedIn',
@@ -136,7 +138,7 @@ const mutations = {
             type: 'success',
             text: '로그아웃 완료!!'
         });
-
+        
         localStorage.clear();
         router.push({ name: 'LoginOn' });
 
@@ -148,13 +150,13 @@ const mutations = {
         state.type = null;
         localStorage.clear();
     },
-    setData(state) {
-        const data = JSON.parse(localStorage.getItem('user'));
-        state.user = new User(data.email, data.userNm, data.roles[0], data.addr);
-        state.token = localStorage.getItem('token');
-        state.refreshToken = localStorage.getItem('refreshToken');
-        state.type = localStorage.getItem('type');
-    },
+    // setData(state) {
+    //     const data = JSON.parse(localStorage.getItem('vuex')).auth;
+    //     state.user = new User(data.user.email, data.user.userNm, data.user.roles[0], data.user.addr);
+    //     state.token = data.token;
+    //     state.refreshToken = data.refreshToken;
+    //     state.type = data.type;
+    // },
     refreshToken(state, response) {
         if (response.resultCode === '0000' && response.data !== '') {
             const data = response.data;
@@ -164,8 +166,8 @@ const mutations = {
             // state.type = data.type;
 
             // localStorage.user = JSON.stringify(state.user);
-            localStorage.token = state.token;
-            localStorage.refreshToken = state.refreshToken;
+            // localStorage.token = state.token;
+            // localStorage.refreshToken = state.refreshToken;
             // localStorage.type = state.type;
         }
         if (response.resultCode === 'error') {

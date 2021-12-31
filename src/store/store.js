@@ -1,5 +1,6 @@
 import Vue from "vue";
 import Vuex from "vuex";
+import createPersistedState from 'vuex-persistedstate';
 
 // modules
 import auth from './modules/auth';
@@ -12,4 +13,5 @@ export const store = new Vuex.Store({
     auth,
     notice
   },
+  plugins: [createPersistedState()]
 })

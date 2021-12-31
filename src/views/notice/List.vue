@@ -1,9 +1,9 @@
 <template>
     <div>
         <t-area>
-            <template v-slot:title>공지사항</template>
-            <template v-slot:text>공지사항 입니다.</template>
-            <template v-slot:content>
+            <template #title>공지사항</template>
+            <template #text>공지사항 입니다.</template>
+            <template #content>
                 <b-table 
                     :items="paginatedData"
                     :fields="noticeHeader" 
@@ -21,7 +21,7 @@
                 align="center"
                 v-model="currentPage"
                 :total-rows="rows"
-                :per-page="perPage"
+                :per-page="pageSize"
                 aria-controls="my-table"
                 @page-click="pageClick"
             ></b-pagination>
@@ -30,45 +30,53 @@
 </template>
 <script>
 export default {
+    props: {
+      page: {
+        type: Number,
+        default: 1
+      }
+    },
     data() {
         return {
-            perPage: 10,
-            currentPage: 1,
+            // perPage: 10,
             noticeHeader: [
                 { noticeSeq: "번호" }, 
                 { content: "제목" }, 
                 { regDate: "등록일" }
             ],
             notieList: [],
-            pageSize: 10,
+            currentPage: 1,
             pageNum: 0,
+            pageSize: 10,
             itemPerPage: 100,
         }
     },
     mounted() {
+        // 페이지 유지를 위한 초기화
+        this.currentPage = this.page;
         this.notieList = this.$store.getters['notice/getNoticeList'];
-        if (!this.notieList.length) {
-            let pageable = {
-                pageNum: this.pageNum,
-                itemPerPage: this.itemPerPage
-            }
-            this.$store.dispatch("notice/getList", pageable).then(() => {
-                this.notieList = this.$store.getters['notice/getNoticeList'];
-            })
-        }
     },
     methods: {
         goDetail(data) {
-            this.$router.push( { name: "Detail", query: { id: data }} )
+            this.$store.commit('notice/setCurrentPage', this.currentPage);
+            this.$router.push( { path: `/notice/detail/${data}`} )
         },
         pageClick(button, page) {
             this.currentPage = page;
+            let maxListLeng = this.$store.getters['notice/getNoticeListEndLength'];
             let maxBtn = button.target.getAttribute('aria-label');
             let maxflag = 'Go to last page';
+            
+            // 리스트 갯수가 더이상 안 받아와도 될 때
+            if (maxListLeng == this.notieList.length) return;
+            
+            // 마지막페이지 가기 누를 경우
             if (maxBtn == maxflag) {
                 this.maxPageClick();
                 return;
             }
+
+            // 불러온 페이지 중 -2번째 페이지를 눌럿을 때 실행 더 받아올 페이지 있으면 받아옴 
             if (page > this.pageCount()-2) {
                 if (this.pageCount() > this.pageNum*10) {
                     this.pageNum++;

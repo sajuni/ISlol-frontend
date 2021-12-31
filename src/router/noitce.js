@@ -5,10 +5,11 @@ const notice = [
     {
         path: "/notice/list",
         name: "NoticeList",
-        component: NoticeList
+        component: NoticeList,
+        props: true
     },
     {
-        path: "/notice/detail",
+        path: "/notice/detail/:id",
         name: "Detail",
         component: Detail
     },

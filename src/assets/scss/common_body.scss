@@ -1,19 +1,57 @@
 .title_wrap {
   margin: 100px;
+  text-align: center;
 }
+
 .title {
   font-size: 56px;
   font-weight: 900;
 }
+
 .text {
   margin: 60px;
 }
+
 .content {
   width: 100%;
   max-width: 1120px;
   margin: 0 auto;
-  text-align: -webkit-center;
 }
+
 .page_nation {
   margin: 50px 0 100px 0;
+}
+
+.title_info {
+  width: 100%;
+}
+
+.detail_title {
+  border-bottom: 1px dashed black;
+  font-size: 24px;
+  padding-bottom: 10px;
+  padding-left: 5px;
+}
+
+.detail_date {
+  font-size: 16px;
+  padding: 10px 0 30px 10px;
+}
+
+.detail_content {
+  padding: 20px 20px 60px 20px;
+}
+
+.detail {
+  width: 100%;
+  max-width: 860px;
+  margin: 0 auto;
+}
+
+.detail button {
+  float: right;
+}
+
+.detail_area {
+  padding-bottom: 140px;
 }

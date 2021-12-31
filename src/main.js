@@ -19,31 +19,27 @@ Vue.use(Notifications, { velocity });
 router.beforeEach((to, from, next) => {
 	if (to.matched.some(record => !record.meta.requiresAuth)) {
 		if (to.fullPath !== '/') {
-			// if (!store.getters['auth/getUser'] || !store.getters['auth/getToken']) {
-			// 	alert('다시 로그인 해주세요.');
-			// 	store.dispatch('auth/clear');
-			// 	next({ name: 'LoginOn' });
-			// } else {
-			// 	next();
-			// }
-			if (!localStorage.getItem('user') || !localStorage.getItem('token')) {
+			if (!store.getters['auth/getUser'] || !store.getters['auth/getToken']) {
 				alert('다시 로그인 해주세요.');
 				store.dispatch('auth/clear');
 				next({ name: 'LoginOn' });
 			} else {
-				if (!store.getters['auth/getUser'] || !store.getters['auth/getToken']) {
-					store.dispatch('auth/setData');
-				}
+				// if (!store.getters['auth/getUser'] || !store.getters['auth/getToken']) {
+				// 	store.dispatch('auth/setData');
+				// }
 				next();
 			}
 		} else {
 			next();
 		}
 	} else {
-		next();
+		if (store.getters['auth/getUser'] || store.getters['auth/getToken']) {
+			next({ name: "Main" });
+		} else {
+			next();
+		}
 	}
 })
-
 
 new Vue({
 	router,

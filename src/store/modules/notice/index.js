@@ -2,7 +2,8 @@ import { noticeApi } from 'Api';
 
 const state = {
     noticeList: [],
-    noticeListEndLength: 0
+    noticeListEndLength: 0,
+    currentPage: 1
 }
 
 const getters = {
@@ -11,6 +12,9 @@ const getters = {
     },
     getNoticeListEndLength: state => {
         return state.noticeListEndLength;
+    },
+    getCurrentPage: state => {
+        return state.currentPage;
     }
 }
 
@@ -44,10 +48,13 @@ const mutations = {
             }
         }
     },
+    setCurrentPage(state, data) {
+        state.currentPage = data;
+    },
     stateClear(state) {
         state.noticeList = [];
         state.noticeListEndLength = 0;
-    }
+    },
 }
 
 export default {
