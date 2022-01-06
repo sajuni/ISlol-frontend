@@ -1,0 +1,28 @@
+.ls_board {
+  height: 400px;
+}
+.ls_photo {
+  border: 1px solid red;
+  float: left;
+  height: 100%;
+  width: 60%;
+  box-sizing: border-box;
+}
+.ls_notice {
+  float: left;
+  height: 100%;
+  width: 40%;
+  box-sizing: border-box;
+  padding: 40px;
+}
+.video_content {
+  padding: 40px;
+  place-content: center;
+  display: flex;
+}
+
+.video_content iframe {
+  width: 600px;
+  height: 400px;
+  padding: 30px;
+}

@@ -7,9 +7,6 @@
         <section class="content">
             <slot name="content"></slot>
         </section>
-        <section class="detail">
-            <slot name="detail"></slot>
-        </section>
     </article>
 </template>
 
