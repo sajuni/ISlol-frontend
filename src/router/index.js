@@ -1,30 +1,48 @@
 import Vue from "vue";
-import VueRouter from "vue-router";
-import Home from "../views/Home.vue";
+import Router from "vue-router";
+import Notice from "@/router/noitce";
 
-Vue.use(VueRouter);
+const LoginOn = () =>
+    import ('@/views/session/LoginOn')
+const SignUp = () =>
+    import ('@/views/session/SignUp')
+const Main = () =>
+    import ('@/views/Main')
+const MemberInfo = () => import ('@/views/member/Info')
 
-const routes = [
-  {
-    path: "/",
-    name: "Home",
-    component: Home,
-  },
-  {
-    path: "/about",
-    name: "About",
-    // route level code-splitting
-    // this generates a separate chunk (about.[hash].js) for this route
-    // which is lazy-loaded when the route is visited.
-    component: () =>
-      import(/* webpackChunkName: "about" */ "../views/About.vue"),
-  },
-];
+Vue.use(Router);
 
-const router = new VueRouter({
-  mode: "history",
-  base: process.env.BASE_URL,
-  routes,
+export default new Router({
+    mode: "history",
+    redirect: '/',
+    routes: [{
+            path: "/",
+            name: "LoginOn",
+            component: LoginOn,
+            meta: {
+                layout: "LoginOn",
+                requiresAuth: true,
+            }
+        },
+        {
+            path: "/sginup",
+            name: "SignUp",
+            component: SignUp,
+            meta: {
+                layout: "SignUp",
+                requiresAuth: true,
+            }
+        },
+        {
+            path: "/main",
+            name: "Main",
+            component: Main,
+        },
+        {
+            path: "/member/info",
+            name: "MemberInfo",
+            component: MemberInfo
+        },
+        ...Notice
+    ]
 });
-
-export default router;
