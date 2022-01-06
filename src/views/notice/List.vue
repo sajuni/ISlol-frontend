@@ -35,6 +35,7 @@
     </div>
 </template>
 <script>
+import dayjs from 'dayjs';
 export default {
     props: {
       page: {
@@ -48,7 +49,7 @@ export default {
             noticeHeader: [
                 { noticeSeq: "번호" }, 
                 { content: "제목" }, 
-                { regDate: "등록일" },
+                { createdDate: "등록일" },
                 { 
                     key: "member.memberName",
                     label: '작성자',
