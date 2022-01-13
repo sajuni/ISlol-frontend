@@ -23,7 +23,7 @@
                                 </b-form-input>
                             </div>
                             <div class="btn_login">
-                                <b-button id="btn_login" variant="success" size="lg" @click="submit">로그인</b-button>
+                                <b-button id="btn_login" variant="success" size="lg" @click="submit" :disabled='!(memberEmail.trim().length>0 && memberPwd.trim().length>0)'>로그인</b-button>
                             </div>
                         </div>
                     </li>
@@ -37,7 +37,7 @@
                   <a href="#" class="find_text">아이디 찾기</a>
                 </li>
                 <li>
-                   <router-link :to="{ name: 'SignUp'}">회원가입</router-link>
+                   <router-link :to="{ name: 'SignUp'}" class="find_text">회원가입</router-link>
                 </li>
             </ul>
         </div>

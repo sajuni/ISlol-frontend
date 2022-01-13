@@ -18,17 +18,10 @@ Vue.use(Notifications, { velocity });
 
 router.beforeEach((to, from, next) => {
 	if (to.matched.some(record => !record.meta.requiresAuth)) {
-		if (to.fullPath !== '/') {
-			if (!store.getters['auth/getUser'] || !store.getters['auth/getToken']) {
-				alert('다시 로그인 해주세요.');
-				store.dispatch('auth/clear');
-				next({ name: 'LoginOn' });
-			} else {
-				// if (!store.getters['auth/getUser'] || !store.getters['auth/getToken']) {
-				// 	store.dispatch('auth/setData');
-				// }
-				next();
-			}
+		if (!store.getters['auth/getUser'] || !store.getters['auth/getToken']) {
+			alert('다시 로그인 해주세요.');
+			store.dispatch('auth/clear');
+			next({ name: 'LoginOn' });
 		} else {
 			next();
 		}

@@ -33,7 +33,9 @@
 				id="btn_login"
 				variant="success"
 				size="lg"
+				class="mt-4"
 				@click="submit"
+				:disabled="validation"
 			>
 			가입하기
 			</b-button>
@@ -63,5 +65,14 @@ export default {
 			this.$store.dispatch("auth/signup", signUpVO);
 		}
 	},
+	computed: {
+		validation() {
+			if (this.memberEmail.trim().length > 0 && this.memberPwd.trim().length > 0 && this.memberNm.trim().length > 0 && this.memberAddr.trim().length > 0) {
+				return false;
+			} else {
+				return true;
+			}
+		}
+	}
 }
 </script>
