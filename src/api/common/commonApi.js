@@ -39,7 +39,7 @@ class apiCommon {
         // Add a response interceptor
         this.axios.interceptors.response.use(async (response) => {
             return response;
-        }, async(error) => {
+        }, async (error) => {
             const originalRequest = error.config;
             if (error.response.status === 401 && !originalRequest._retry) {
                 originalRequest._retry = true;
@@ -60,7 +60,6 @@ class apiCommon {
     async get(url, isCommonAlert) {
         try {
             const response = await this.axios.get(url);
-
             return this.parseResponse(response, isCommonAlert);
         } catch (err) {
             return this.getErrorData(err);
@@ -71,7 +70,6 @@ class apiCommon {
     async post(url, param, isCommonAlert) {
         try {
             const response = await this.axios.post(url, param);
-
             return this.parseResponse(response, isCommonAlert);
         } catch (err) {
             return this.getErrorData(err);
@@ -82,9 +80,8 @@ class apiCommon {
     parseResponse(response, isCommonAlert) {
         const responseHead = response.data.head;
         const responseBody = response.data.body;
-
         if (responseHead.resultCode != '0000'& isCommonAlert ) {
-            if(responseHead.resultCode != 'EXRS9003' && responseHead.resultCode != 'CMRS9002'){
+            if (responseHead.resultCode != 'EXRS9003' && responseHead.resultCode != 'CMRS9002') {
                 alert('Error:: ' + responseHead.resultMessage);
             }
         }

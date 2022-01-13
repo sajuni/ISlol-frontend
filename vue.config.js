@@ -12,6 +12,7 @@ module.exports = {
     },
     lintOnSave: false,
     devServer: {
+        disableHostCheck: true,
         overlay: false,
         proxy: {
             '/api': {
