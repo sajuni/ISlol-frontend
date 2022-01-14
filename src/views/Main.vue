@@ -97,6 +97,7 @@ export default {
 		}
 	},
 	created() {
+		console.log('연동확인')
 		this.$store.dispatch("notice/stateClear");
 		let pageable = {
 			pageNum: this.pageNum,

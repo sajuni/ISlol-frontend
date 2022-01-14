@@ -48,10 +48,10 @@
 export default {
   	data() {
 		return {
-		memberEmail: "",
-		memberPwd: "",
-		memberNm: "",
-		memberAddr: ""
+			memberEmail: "",
+			memberPwd: "",
+			memberNm: "",
+			memberAddr: ""
 		}
  	},
 	methods: {
