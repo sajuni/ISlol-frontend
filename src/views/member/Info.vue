@@ -1,10 +1,11 @@
 <template>
     <div>
-        <div class="title_wrap">
-            <h1 class="title">회원정보</h1>
-        </div>
-        <div class="content">
-            <b-form>
+        <t-area>
+            <template #title>회원정보</template>
+            <template #text></template>
+            <template #content>
+            <div class="member_info_form">    
+                <b-form>
                     <b-form-input
                         class="mb-4"
                         v-model="form.email"
@@ -44,12 +45,15 @@
                         placeholder="주소"
                     >
                     </b-form-input>
-            </b-form>
-            <div class="mmt-5 mb-5">
-                <b-button disabled size="lg" variant="primary">Disabled</b-button>
-                <b-button disabled size="lg">Also Disabled</b-button>
+                </b-form>
+                <div class="mt-5 mb-5">
+                    <b-button disabled size="lg" variant="primary">Disabled</b-button>
+                    <b-button disabled size="lg">Also Disabled</b-button>
+                </div>
             </div>
-        </div>
+            </template>
+        </t-area>
+      
     </div>
 </template>
 
