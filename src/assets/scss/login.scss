@@ -48,9 +48,9 @@
   padding-left: 28px;
 }
 
-.card-body input {
- margin-bottom: 20px;
-}
+// .card-body input {
+//  margin-bottom: 20px;
+// }
 
 .content .member_info_form {
   text-align: -webkit-center;
@@ -58,4 +58,9 @@
 
 .member_info_form button:nth-child(1) {
   margin-right: 20px;
+}
+
+.error-message {
+  padding: 3px 310px 0px 0px;
+  color: #E62929;
 }

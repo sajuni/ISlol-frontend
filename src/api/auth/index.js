@@ -4,13 +4,16 @@ const common = new commonApi('auth');
 
 const authApi = {
     signup: (user) => {
-        return common.post(common.config.AUTH_URL + 'signup', user , true);
+        return common.post(common.config.AUTH_URL + 'signup', user);
     },
     signin: (memberEmail, memberPwd) => {
-        return common.post(common.config.AUTH_URL + 'signin', { memberEmail, memberPwd }, false);
+        return common.post(common.config.AUTH_URL + 'signin', { memberEmail, memberPwd });
     },
     refreshToken: (token) => {
-        return common.post(common.config.AUTH_URL + 'refreshtoken', token, false);
+        return common.post(common.config.AUTH_URL + 'refreshtoken', token);
+    },
+    update: (member) => {
+        return common.put(`${common.config.AUTH_URL}${member.memberSeq}/update`, member);
     }
 }
 

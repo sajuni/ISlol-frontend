@@ -41,7 +41,8 @@ class apiCommon {
             return response;
         }, async (error) => {
             const originalRequest = error.config;
-            if (error.response.status === 401 && !originalRequest._retry) {
+            const errorMessage = error.response.data.message;
+            if (error.response.status === 401 && !originalRequest._retry && errorMessage != "ID/PW를 확인해 주세요.") {
                 originalRequest._retry = true;
                 await store.dispatch('auth/refreshToken');
                 originalRequest.headers['Authorization'] = 'Bearer ' + store.getters['auth/getToken'];
@@ -57,33 +58,42 @@ class apiCommon {
     }
 
 
-    async get(url, isCommonAlert) {
+    async get(url) {
         try {
             const response = await this.axios.get(url);
-            return this.parseResponse(response, isCommonAlert);
+            return this.parseResponse(response);
         } catch (err) {
-            return this.getErrorData(err);
+            return this.getErrorData(err.response);
         }
 
     }
 
-    async post(url, param, isCommonAlert) {
+    async post(url, param) {
         try {
             const response = await this.axios.post(url, param);
-            return this.parseResponse(response, isCommonAlert);
+            return this.parseResponse(response);
         } catch (err) {
-            return this.getErrorData(err);
+            return this.getErrorData(err.response);
         }
 
     }
 
-    parseResponse(response, isCommonAlert) {
+    async put(url, param) {
+        try {
+            const response = await this.axios.put(url, param);
+            return this.parseResponse(response);
+        } catch (err) {
+            return this.getErrorData(err.response);
+        }
+
+    }
+    
+    
+    parseResponse(response) {
         const responseHead = response.data.head;
         const responseBody = response.data.body;
-        if (responseHead.resultCode != '0000'& isCommonAlert ) {
-            if (responseHead.resultCode != 'EXRS9003' && responseHead.resultCode != 'CMRS9002') {
-                alert('Error:: ' + responseHead.resultMessage);
-            }
+        if (responseHead.resultCode != '0000') {
+            alert('Error:: ' + responseHead.resultMessage);
         }
 
         return {
@@ -95,11 +105,10 @@ class apiCommon {
     }
 
     getErrorData(err) {
-        console.log('getErrorData', err);
         return {
-            resultCode: 'error',
-            resultMessage: err.toString(),
-            data: {}
+            resultCode: err.status,
+            resultMessage: err.data.message,
+            data: err.data
         };
     }
 }

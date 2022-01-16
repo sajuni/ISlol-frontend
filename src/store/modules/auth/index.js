@@ -74,10 +74,19 @@ const actions = {
         return authApi.refreshToken(payload)
             .then(response => {
                 context.commit('refreshToken', response);
-            }, error => {
+            }).catch(error => {
                 console.log('error', error);
             })
     },
+    update(context, payload) {
+        return authApi.update(payload)
+            .then(res => {
+                context.commit('updateSuccess', res);
+            }).catch(err => {
+                console.log('err', err);
+            })
+    },
+    
     
 }
 
@@ -89,30 +98,33 @@ const mutations = {
 
             const data = res.data;
 
-            state.user = new User(data.email, data.userNm, data.roles[0], data.addr);
+            state.user = new User(data.id ,data.email, data.userNm, data.roles[0], data.addr, data.nick);
             state.token = data.token;
             state.refreshToken = data.refreshToken;
             state.type = data.type;
-
-            // localStorage.user = JSON.stringify(state.user);
-            // localStorage.token = state.token;
-            // localStorage.refreshToken = state.refreshToken;
-            // localStorage.type = state.type;
            
         setTimeout(() => {
             router.push({ name: "Main" });
         }, 100);
 
-            Vue.notify({
-                group: 'loggedIn',
-                type: 'success',
-                text: '로그인에 성공했습니다.'
-            });
+        Vue.notify({
+            group: 'loggedIn',
+            type: 'success',
+            text: '로그인에 성공했습니다.'
+        });
 
         } else if (res.resultCode === '9999') { //계정 오류
             state.isWrongPassword = true;
         } else { //통신 오류
-            alert('Error:: ' + res.resultMessage);
+            if (res.resultMessage == 'ID/PW를 확인해 주세요.') {
+                Vue.notify({
+                    group: 'loggedIn',
+                    type: 'error',
+                    text: '계정 정보를 확인해주세요!!'
+                });
+            } else {
+                alert(res.resultMessage);
+            }
         }
     },
     signupSuccess(state, res) {
@@ -124,6 +136,12 @@ const mutations = {
                 group: 'loggedIn',
                 type: 'success',
                 text: '계정을 생성했습니다.'
+            });
+        } else {
+            Vue.notify({
+                group: 'loggedIn',
+                type: 'error',
+                text: res.resultMessage
             });
         }
     },
@@ -160,15 +178,8 @@ const mutations = {
     refreshToken(state, response) {
         if (response.resultCode === '0000' && response.data !== '') {
             const data = response.data;
-            // state.user = new User(data.email, data.userNm, data.roles[0], data.addr);
             state.token = data.token;
             state.refreshToken = data.refreshToken;
-            // state.type = data.type;
-
-            // localStorage.user = JSON.stringify(state.user);
-            // localStorage.token = state.token;
-            // localStorage.refreshToken = state.refreshToken;
-            // localStorage.type = state.type;
         }
         if (response.resultCode === 'error') {
             alert('다시 로그인 해주세요');
@@ -181,6 +192,25 @@ const mutations = {
             router.push({ name: 'LoginOn' });
         }
     },
+    updateSuccess(state, res) {
+        if (res.resultCode === '0000') {
+            const data = res.data.update;
+            state.user = new User(data.memberSeq ,data.memberEmail, data.memberName, data.roles[0], data.memberAddr, data.memberNick);
+            Vue.notify({
+                group: 'loggedIn',
+                type: 'success',
+                text: '회원정보 수정완료!!'
+            });
+
+            router.push({ name: 'Main' });
+        } else {
+            Vue.notify({
+                group: 'loggedIn',
+                type: 'error',
+                text: '비밀번호를 확인해 주세요!!'
+            });
+        }
+    }
 }
 
 export default {

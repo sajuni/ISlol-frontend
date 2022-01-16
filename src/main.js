@@ -10,9 +10,21 @@ import velocity from 'velocity-animate'
 import '@/plugins/global-components'
 import { store } from "@/store/store"
 import '@/assets/scss/_index.scss'
+import SimpleVueValidation from 'simple-vue-validator';
 
-Vue.use(BootstrapVue)
-Vue.use(IconsPlugin)
+SimpleVueValidation.extendTemplates({ 
+    required: '필수 입력 항목입니다.', 
+    length: '길이가 {0} 이어야 합니다.', 
+    minLength: '{0} 글자 이상이어야 합니다.', 
+    maxLength: '{0} 글자 이하여야 합니다.', 
+    digit: '숫자만 입력해주세요.' ,
+    match: '비밀번호가 같지 않음.'
+})
+
+
+Vue.use(SimpleVueValidation);
+Vue.use(BootstrapVue);
+Vue.use(IconsPlugin);
 Vue.config.productionTip = false;
 Vue.use(Notifications, { velocity });
 
