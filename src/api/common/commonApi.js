@@ -42,7 +42,7 @@ class apiCommon {
         }, async (error) => {
             const originalRequest = error.config;
             const errorMessage = error.response.data.message;
-            if (error.response.status === 401 && !originalRequest._retry && errorMessage != "ID/PW를 확인해 주세요.") {
+            if (error.response.status === 401 && errorMessage != "ID/PW를 확인해 주세요.") {
                 originalRequest._retry = true;
                 await store.dispatch('auth/refreshToken');
                 originalRequest.headers['Authorization'] = 'Bearer ' + store.getters['auth/getToken'];
@@ -50,7 +50,10 @@ class apiCommon {
             }
             if (error.response.status === 403) {
                 alert('접근권한이 없습니다');
-                router.push('/default/dashboard/ecommerce');
+                router.push({
+                    path: '/',
+                    query: { redirect: '' }
+                });
             }
             return Promise.reject(error);
         });
@@ -92,9 +95,9 @@ class apiCommon {
     parseResponse(response) {
         const responseHead = response.data.head;
         const responseBody = response.data.body;
-        if (responseHead.resultCode != '0000') {
-            alert('Error:: ' + responseHead.resultMessage);
-        }
+        // if (responseHead.resultCode != '0000') {
+        //     alert('Error:: ' + responseHead.resultMessage);
+        // }
 
         return {
             resultCode: responseHead.resultCode,

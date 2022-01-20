@@ -6,12 +6,19 @@ const notice = [
         path: "/notice/list",
         name: "NoticeList",
         component: NoticeList,
-        props: true
+        props: true,
+        meta: {
+            requiresAuth: true,
+        }
     },
     {
         path: "/notice/detail/:id",
         name: "Detail",
-        component: Detail
+        component: Detail,
+        meta: {
+            requiresAuth: true,
+        }
+
     },
 ]
 

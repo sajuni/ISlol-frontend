@@ -97,7 +97,7 @@ export default {
 		}
 	},
 	created() {
-		this.$store.dispatch("notice/stateClear");
+		this.$store.dispatch("notice/stateClear")
 		let pageable = {
 			pageNum: this.pageNum,
 			itemPerPage: this.itemPerPage
@@ -108,7 +108,8 @@ export default {
 
 		this.$store.dispatch("video/getList").then(() => {
 			this.videoList = this.$store.getters["video/getVideoList"];
-		}).then();
+		})
+			
 	},
 	methods: {
 		

@@ -29,21 +29,35 @@ Vue.config.productionTip = false;
 Vue.use(Notifications, { velocity });
 
 router.beforeEach((to, from, next) => {
-	if (to.matched.some(record => !record.meta.requiresAuth)) {
-		if (!store.getters['auth/getUser'] || !store.getters['auth/getToken']) {
-			alert('다시 로그인 해주세요.');
-			store.dispatch('auth/clear');
-			next({ name: 'LoginOn' });
-		} else {
-			next();
-		}
-	} else {
-		if (store.getters['auth/getUser'] || store.getters['auth/getToken']) {
+	
+	// 로그인 페이지 접근
+	if (to.fullPath == "/") {
+		// 토큰 확인 후 메인으로 이동
+		if (store.getters['auth/getToken']) {
 			next({ name: "Main" });
+		}
+	// 로그인 페이지 외 접근
+	} else {
+		// 권한 필요 페이지 체크
+		if (to.matched.some(record => record.meta.requiresAuth)) {
+			// 토큰 확인 후 정상 동작
+			if (store.getters["auth/getToken"]) {
+				next();
+			// 토큰 없으면 로그인 페이지로 튕김
+			} else {
+				alert("다시 로그인 해주세요.");
+				next({
+					path: '/',
+					query: { redirect: '' }
+				})
+				// next('/');
+			}
+			// 권한 필요 페이지 아니면 정상 동작
 		} else {
 			next();
 		}
 	}
+	
 })
 
 new Vue({

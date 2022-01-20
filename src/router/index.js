@@ -21,7 +21,6 @@ export default new Router({
             component: LoginOn,
             meta: {
                 layout: "LoginOn",
-                requiresAuth: true,
             }
         },
         {
@@ -30,18 +29,23 @@ export default new Router({
             component: SignUp,
             meta: {
                 layout: "SignUp",
-                requiresAuth: true,
             }
         },
         {
             path: "/main",
             name: "Main",
             component: Main,
+            meta: {
+                requiresAuth: true,
+            }
         },
         {
             path: "/member/info",
             name: "MemberInfo",
-            component: MemberInfo
+            component: MemberInfo,
+            meta: {
+                requiresAuth: true,
+            }
         },
         ...Notice
     ]

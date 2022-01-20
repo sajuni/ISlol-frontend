@@ -36,7 +36,7 @@ const getters = {
         return state.isWrongPassword;
     },
     getRoles: state => {
-        return state.user.roles[0];
+        return state.user.roles;
     }
 }
 
@@ -94,8 +94,6 @@ const actions = {
 const mutations = {
     signinSuccess(state, res) {
         if (res.resultCode === '0000') {
-            state.isWrongPassword = false;
-
             const data = res.data;
 
             state.user = new User(data.id ,data.email, data.userNm, data.roles[0], data.addr, data.nick);
@@ -103,19 +101,17 @@ const mutations = {
             state.refreshToken = data.refreshToken;
             state.type = data.type;
            
-        setTimeout(() => {
-            router.push({ name: "Main" });
-        }, 100);
+            setTimeout(() => {
+                router.push({ name: "Main" });
+            }, 100);
 
-        Vue.notify({
-            group: 'loggedIn',
-            type: 'success',
-            text: '로그인에 성공했습니다.'
-        });
+            Vue.notify({
+                group: 'loggedIn',
+                type: 'success',
+                text: '로그인에 성공했습니다.'
+            });
 
-        } else if (res.resultCode === '9999') { //계정 오류
-            state.isWrongPassword = true;
-        } else { //통신 오류
+        } else { 
             if (res.resultMessage == 'ID/PW를 확인해 주세요.') {
                 Vue.notify({
                     group: 'loggedIn',
@@ -158,7 +154,10 @@ const mutations = {
         });
         
         localStorage.clear();
-        router.push({ name: 'LoginOn' });
+        router.push({
+            path: '/',
+            query: { redirect: '' }
+        });
 
     },
     clear(state) {
@@ -180,16 +179,17 @@ const mutations = {
             const data = response.data;
             state.token = data.token;
             state.refreshToken = data.refreshToken;
-        }
-        if (response.resultCode === 'error') {
-            alert('다시 로그인 해주세요');
+        } else {
             state.user = null;
             state.token = null;
             state.refreshToken = null;
             state.type = null;
             localStorage.clear();
 
-            router.push({ name: 'LoginOn' });
+            router.push({
+                path: '/',
+                query: { redirect: '' }
+            });
         }
     },
     updateSuccess(state, res) {
@@ -210,7 +210,7 @@ const mutations = {
                 text: '비밀번호를 확인해 주세요!!'
             });
         }
-    }
+    },
 }
 
 export default {
