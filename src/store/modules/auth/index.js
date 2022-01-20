@@ -126,7 +126,10 @@ const mutations = {
     signupSuccess(state, res) {
         if (res.resultCode === '0000') {
 
-            router.push({ name: "LoginOn" });
+            router.push({
+                path: '/',
+                query: { redirect: '' }
+            });
 
             Vue.notify({
                 group: 'loggedIn',
