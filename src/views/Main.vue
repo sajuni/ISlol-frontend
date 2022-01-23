@@ -23,18 +23,18 @@
 				</b-carousel-slide>
   			</b-carousel>
 		</section>
-		<section class="main ls_video">
-			<section class="video_content" v-if="this.videoList.length > 0">
+		<section class="main ls_media">
+			<section class="media_content" v-if="this.videoList.length > 0">
 				<b-embed
 					v-for="item in this.videoList"
-					:key="item.videoSeq"
-					:src="item.videoUrl"
+					:key="item.mediaSeq"
+					:src="item.mediaUrl"
 					type="iframe"
 					allowfullscreen
 				>
 				</b-embed>
 			</section>
-			<section class="video_content" v-else>
+			<section class="media_content" v-else>
 				<b-embed
 					type="iframe"
 					src="https://www.youtube.com/embed/MBh5kirOkCU"
@@ -56,10 +56,12 @@
 			</section>
 		</section>
 		<section class="main ls_board">
-			<section class="main ls_photo">포토</section>
+			<section class="main ls_photo"><h4>포토</h4>
+				<section class="ls_img"><b-img v-for="item in imageList" :key="item.mediaSeq" :src="item.mediaUrl"></b-img></section>
+			</section>
 			<section class="main ls_notice">
 				<section>
-					<h4>공지사항입니다.</h4><br>
+					<h4>공지사항</h4><br>
 					<b-table
 						:items="noticeList"
 						:fields="noticeHeader"
@@ -68,7 +70,7 @@
 						hover
 					>
 					<template #cell(content)="data">
-						<router-link :to="{ path: `/notice/detail/${data.noticeSeq}` }">{{data.item.content}}</router-link>
+						<router-link :to="{ path: `/notice/detail/${data.item.noticeSeq}` }">{{data.item.content}}</router-link>
 					</template>
 					</b-table>
 				</section>
@@ -94,6 +96,7 @@ export default {
                 }
             ],
 			videoList: [],
+			imageList: [],
 		}
 	},
 	created() {
@@ -106,8 +109,9 @@ export default {
 			this.noticeList = this.$store.getters["notice/getNoticeList"];
 		})
 
-		this.$store.dispatch("video/getList").then(() => {
-			this.videoList = this.$store.getters["video/getVideoList"];
+		this.$store.dispatch("media/getList").then(() => {
+			this.videoList = this.$store.getters["media/getvideoList"];
+			this.imageList = this.$store.getters["media/getimageList"];
 		})
 			
 	},

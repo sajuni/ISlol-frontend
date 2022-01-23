@@ -1,9 +1,9 @@
 import authApi from "./auth";
 import noticeApi from "./notice";
-import videoApi from "./video";
+import mediaApi from "./media";
 
 export {
     authApi,
     noticeApi,
-    videoApi
+    mediaApi
 }

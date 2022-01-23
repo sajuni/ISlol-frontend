@@ -9,13 +9,13 @@
 			</div>
 			<div class="location_menu">
 				<b-navbar type="light" variant="white" class="h-25">
-					<b-navbar-brand href="" style="margin-right:auto">
+					<b-navbar-brand :href="'/main'" style="margin-right:auto">
 						ISLOL
 					</b-navbar-brand>
 					<b-navbar-nav>
-						<b-nav-item class="px-4">
+						<!-- <b-nav-item class="px-4">
 							<router-link :to="{ name: 'Main' }">Home</router-link>
-						</b-nav-item>
+						</b-nav-item> -->
 						<b-nav-item class="px-4">
 							대회영상
 						</b-nav-item>

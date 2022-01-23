@@ -11,7 +11,7 @@
                     hover
                     >
                     <template v-slot:cell(content)="data">
-                        <a href="javascript:void(0)" @click="goDetail(data.item.noticeSeq)">{{data.item.content}}</a>
+                        <a href="javascript:void(0)" @click="goDetail(data)">{{data.item.title}}</a>
                     </template>
                     <template #table-colgroup>
                         <col :style="{ width: '5%' }">
@@ -69,7 +69,7 @@ export default {
     methods: {
         goDetail(data) {
             this.$store.commit('notice/setCurrentPage', this.currentPage);
-            this.$router.push( { path: `/notice/detail/${data}`} )
+            this.$router.push( { path: `/notice/detail/${data.item.noticeSeq}`} )
         },
         pageClick(button, page) {
             this.currentPage = page;

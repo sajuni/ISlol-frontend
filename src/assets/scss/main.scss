@@ -2,11 +2,11 @@
   height: 400px;
 }
 .ls_photo {
-  border: 1px solid red;
   float: left;
   height: 100%;
   width: 60%;
   box-sizing: border-box;
+  padding: 40px;
 }
 .ls_notice {
   float: left;
@@ -15,14 +15,24 @@
   box-sizing: border-box;
   padding: 40px;
 }
-.video_content {
+.media_content {
   padding: 40px;
   place-content: center;
   display: flex;
 }
 
-.video_content iframe {
+.media_content iframe {
   width: 600px;
   height: 400px;
   padding: 30px;
+}
+
+.ls_img {
+  padding-top: 20px;
+}
+
+.ls_img img {
+  width: 360px;
+  height: 250px;
+  margin-right: 30px;
 }

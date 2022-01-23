@@ -15,6 +15,9 @@ const getters = {
     },
     getCurrentPage: state => {
         return state.currentPage;
+    },
+    getNoticeDetail: (state) => (seq) => {
+        return state.noticeList.filter(v => seq.id == v.noticeSeq)[0];
     }
 }
 
