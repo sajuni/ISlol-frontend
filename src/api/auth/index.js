@@ -13,7 +13,7 @@ const authApi = {
         return common.post(common.config.AUTH_URL + 'refreshtoken', token);
     },
     update: (member) => {
-        return common.put(`${common.config.AUTH_URL}${member.memberSeq}/update`, member);
+        return common.patch(`${common.config.AUTH_URL}${member.memberSeq}/update`, member);
     }
 }
 

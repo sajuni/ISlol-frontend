@@ -4,7 +4,7 @@ const common = new commonApi('media');
 
 const mediaApi = {
     getList: () => {
-        return common.get(common.config.MEDIA_URL + 'list');
+        return common.get(common.config.MEDIA_URL);
     },
 
 }

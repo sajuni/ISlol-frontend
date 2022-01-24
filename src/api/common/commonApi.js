@@ -90,7 +90,27 @@ class apiCommon {
         }
 
     }
+
+    async patch(url, param) {
+        try {
+            const response = await this.axios.patch(url, param);
+            return this.parseResponse(response);
+        } catch (err) {
+            return this.getErrorData(err.response);
+        }
+
+    }
     
+    async delete(url, param) {
+        try {
+            const response = await this.axios.delete(url, param);
+            return this.parseResponse(response);
+        } catch (err) {
+            return this.getErrorData(err.response);
+        }
+
+    }
+
     
     parseResponse(response) {
         const responseHead = response.data.head;
