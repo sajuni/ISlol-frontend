@@ -113,7 +113,7 @@ export default {
 			this.videoList = this.$store.getters["media/getvideoList"];
 			this.imageList = this.$store.getters["media/getimageList"];
 		})
-		console.log('젠킨스테스트')
+		console.log('젠킨스테스트22')
 	},
 	methods: {
 		
