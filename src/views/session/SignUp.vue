@@ -58,15 +58,26 @@
 				></b-form-input>
 				<div class="error-message" v-if="validation !== undefined"> {{ validation.firstError('memberNick') }} </div>
 			</div>
-			<b-button
-				id="btn_login"
-				variant="success"
-				size="lg"
-				class="mt-4"
-				@click="submit"
-			>
-			가입하기
-			</b-button>
+			<div class="signup-button">
+				<b-button
+					id="btn_login"
+					variant="success"
+					size="lg"
+					class="mt-4"
+					@click="submit()"
+				>
+				가입
+				</b-button>
+				<b-button
+					id="btn_login"
+					variant="danger"
+					size="lg"
+					class="mt-4"
+					@click="cancel()"
+				>
+				취소
+				</b-button>
+			</div>
 		</b-card>
 	</div>
 	
@@ -102,6 +113,12 @@ export default {
 				this.$store.dispatch("auth/signup", signUpVO);
 			}
 
+		}, 
+		cancel() {
+			this.$router.push({
+                path: '/',
+                query: { redirect: '' }
+            });
 		}
 	},
 	validators: {
