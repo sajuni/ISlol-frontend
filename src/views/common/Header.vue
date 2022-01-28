@@ -9,7 +9,7 @@
 			</div>
 			<div class="location_menu">
 				<b-navbar type="light" variant="white" class="h-25">
-					<b-navbar-brand :href="'/main'" style="margin-right:auto">
+					<b-navbar-brand @click="mainlink()" style="margin-right:auto">
 						ISLOL
 					</b-navbar-brand>
 					<b-navbar-nav>
@@ -56,6 +56,9 @@ export default {
 	methods: {
 		logout() {
 			this.$store.dispatch('auth/logout');
+		},
+		mainlink() {
+			this.$router.push({name: 'Main'})
 		}
 	},
 }
