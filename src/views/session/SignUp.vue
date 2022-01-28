@@ -60,7 +60,7 @@
 			</div>
 			<div class="signup-button">
 				<b-button
-					id="btn_login"
+					id="btn_signup"
 					variant="success"
 					size="lg"
 					class="mt-4"
@@ -69,7 +69,7 @@
 				가입
 				</b-button>
 				<b-button
-					id="btn_login"
+					id="btn_signup"
 					variant="danger"
 					size="lg"
 					class="mt-4"
