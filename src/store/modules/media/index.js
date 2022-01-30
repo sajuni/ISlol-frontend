@@ -10,7 +10,13 @@ const getters = {
         return state.videoList;
     },
     getimageList: state => {
-        return state.imageList;
+        let imageList = state.imageList;
+        if (imageList.length != 0) {
+            imageList.forEach(v => {
+               v.mediaUrl = `${location.protocol}//${location.hostname}:8180/images/${v.mediaUrl}`
+            });
+        }
+        return imageList;
     }
 }
 
