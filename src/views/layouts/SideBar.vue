@@ -11,7 +11,7 @@
                <b-nav vertical>
                <b-nav-item>미디어관리</b-nav-item>
                <b-nav-item>Link</b-nav-item>
-               <b-nav-item>Another Link</b-nav-item>
+               <b-nav-item><router-link :to="{ name: 'Main' }">HOME</router-link></b-nav-item>
                </b-nav>
             </nav>
          </div>
