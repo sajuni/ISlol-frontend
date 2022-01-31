@@ -9,9 +9,3 @@
         </section>
     </article>
 </template>
-
-<script>
-export default {
-    name: "GlobalTitleArea"
-}
-</script>

@@ -35,6 +35,11 @@ router.beforeEach((to, from, next) => {
 		// 토큰 확인 후 메인으로 이동
 		if (store.getters['auth/getToken']) {
 			next({ name: "Main" });
+		} else {
+			next({
+				path: '/',
+				query: { redirect: '' }
+			})
 		}
 	// 로그인 페이지 외 접근
 	} else {

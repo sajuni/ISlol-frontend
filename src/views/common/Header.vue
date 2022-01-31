@@ -3,8 +3,9 @@
 		<div class="lnb_menu">
 			<div class="global_menu">
 				<ul class="global_menu_list">
-					<li class="global_menu_item px-4" id="two"><router-link :to="{ name: 'MemberInfo' }">회원정보</router-link></li>
+					<li class="global_menu_item px-4" id="first"><router-link :to="{ name: 'MemberInfo' }">회원정보</router-link></li>
 					<li class="global_menu_item px-4"><a href="javascript:void(0)" @click="logout()">로그아웃</a></li>
+					<li v-if="this.role == 'ROLE_ADMIN'" class="global_menu_item px-4" id="second"><router-link :to="{ name: 'Admin' }">관리자</router-link></li>
 				</ul>
 			</div>
 			<div class="location_menu">
@@ -47,12 +48,12 @@
 export default {
 	data() {
         return {
-           
+           role: ''
         }
     },
-// 	mounted() {
-// 		console.log(this.$router)
-// 	},
+	mounted() {
+		this.role = this.$store.getters['auth/getRoles'];
+	},
 	methods: {
 		logout() {
 			this.$store.dispatch('auth/logout');
@@ -60,13 +61,3 @@ export default {
 	},
 }
 </script>
-
-<style scoped>
-header {width:100%; text-align:center; position:relative; border-bottom:1px solid #35495e; text-align: -webkit-center;}
-a {text-decoration:none; color:#7a7a7a;}
-.global_menu {height: 39px; padding-top: 13px;}
-.lnb_menu {width: 1120px;}
-.global_menu_list {font-size: 12px; margin:0;}
-.global_menu_item {float:right;}
-#two {border-left:1px solid #e5e5e5;}
-</style>
