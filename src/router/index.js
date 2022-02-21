@@ -2,6 +2,7 @@ import Vue from "vue";
 import Router from "vue-router";
 import Notice from "@/router/noitce";
 import Admin from "@/router/admin";
+import Photo from '@/router/photo';
 
 const LoginOn = () =>
     import ('@/views/session/LoginOn')
@@ -49,6 +50,7 @@ export default new Router({
             }
         },
         ...Notice,
-        ...Admin
+        ...Admin,
+        ...Photo
     ]
 });

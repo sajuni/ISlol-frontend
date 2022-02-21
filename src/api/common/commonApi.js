@@ -18,7 +18,7 @@ class apiCommon {
 
         // Add a request interceptor
         this.axios.interceptors.request.use(
-            config => {
+            async config => {
                 if (config.url == '/user/auth/refreshtoken') {
                     const refreshToken = store.getters['auth/getRefreshToken'];
                     if (refreshToken != null) {
@@ -43,7 +43,7 @@ class apiCommon {
             const originalRequest = error.config;
             const errorMessage = error.response.data.message;
             if (error.response.status === 401 && errorMessage != "ID/PW를 확인해 주세요.") {
-                originalRequest._retry = true;
+                // originalRequest._retry = true;
                 await store.dispatch('auth/refreshToken');
                 originalRequest.headers['Authorization'] = 'Bearer ' + store.getters['auth/getToken'];
                 return axios(originalRequest);

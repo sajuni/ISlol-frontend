@@ -1,22 +1,20 @@
 <template>
-    <div>
-        <t-area>
-            <template #title>공지사항</template>
-            <template #text>상세내용</template>
-            <template #content>
-                <section class="detail_area">
-                    <section class="title_info">
-                        <section class="detail_title"><b>{{notice.title}}</b></section>
-                        <section class="detail_date"><span>{{notice.member.memberName}}</span>  <span>{{notice.createdDate}}</span></section>
-                    </section>
-                    <section class="detail_content">
-                        {{notice.content}}
-                    </section>
-                    <b-button class="detail_button" variant="primary" @click="goList()">목록</b-button>
+    <t-area>
+        <template #title>공지사항</template>
+        <template #text>상세내용</template>
+        <template #content>
+            <section class="detail_area">
+                <section class="title_info">
+                    <section class="detail_title"><b>{{notice.title}}</b></section>
+                    <section class="detail_date"><span>{{notice.member.memberName}}</span>  <span>{{notice.createdDate}}</span></section>
                 </section>
-            </template>
-        </t-area>
-    </div>
+                <section class="detail_content">
+                    {{notice.content}}
+                </section>
+                <b-button class="detail_button" variant="primary" @click="goList()">목록</b-button>
+            </section>
+        </template>
+    </t-area>
 </template>
 
 <script>

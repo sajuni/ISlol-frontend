@@ -20,7 +20,8 @@ SimpleVueValidation.extendTemplates({
     digit: '숫자만 입력해주세요.' ,
     match: '비밀번호가 같지 않음.'
 })
-
+const portNum = 8180;
+Vue.prototype.$portNum = portNum;
 
 Vue.use(SimpleVueValidation);
 Vue.use(BootstrapVue);

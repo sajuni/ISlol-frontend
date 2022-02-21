@@ -1,15 +1,19 @@
 <template>
 	<footer>
-		<p>copyRight hyo.com</p>
+		<section class="copyright">
+			현재 위치: <b>{{test}}</b><br>
+			© HYO ISLOL Corp.
+		</section>
 	</footer>
 </template>
 
 <script>
 export default {
 	
+	computed: {
+		test() {
+			return this.$store.getters['kakao/getLocation'];
+		} 
+	}
 }
 </script>
-
-<style>
-footer {border-top:1px solid #35495e; text-align:center; font-size:16px; color:#41b883;}
-</style>

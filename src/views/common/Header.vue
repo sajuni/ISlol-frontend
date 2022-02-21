@@ -5,7 +5,7 @@
 				<ul class="global_menu_list">
 					<li class="global_menu_item px-4" id="first"><router-link :to="{ name: 'MemberInfo' }">회원정보</router-link></li>
 					<li class="global_menu_item px-4"><a href="javascript:void(0)" @click="logout()">로그아웃</a></li>
-					<li v-if="this.role == 'ROLE_ADMIN'" class="global_menu_item px-4" id="second"><router-link :to="{ name: 'Admin' }">관리자</router-link></li>
+					<li v-if="role" class="global_menu_item px-4" id="second"><router-link :to="{ name: 'Admin' }">관리자</router-link></li>
 				</ul>
 			</div>
 			<div class="location_menu">
@@ -25,7 +25,7 @@
 						</b-nav-item>
 						<b-nav-item-dropdown class="px-4" text="커뮤니티">
 							<b-dropdown-item href="#"><router-link :to="{ name: 'NoticeList' }">공지사항</router-link></b-dropdown-item>
-							<b-dropdown-item href="#">ISLOL Photo</b-dropdown-item>
+							<b-dropdown-item href="#"><router-link :to="{ name: 'PhotoList' }">사진</router-link></b-dropdown-item>
 						</b-nav-item-dropdown>
 						<b-nav-item class="px-4">
 							모임운영 현황
@@ -46,18 +46,21 @@
 
 <script>
 export default {
-	data() {
-        return {
-           role: ''
-        }
-    },
-	mounted() {
-		this.role = this.$store.getters['auth/getRoles'];
-	},
 	methods: {
 		logout() {
 			this.$store.dispatch('auth/logout');
 		},
 	},
+	computed: {
+		role() {
+			let role = false;
+			if (this.$store.getters['auth/getUser'] != null) {
+				if (this.$store.getters['auth/getUser'].roles == 'ROLE_ADMIN'){
+					role = true;
+				}
+			}
+			return role;
+		}
+	}
 }
 </script>

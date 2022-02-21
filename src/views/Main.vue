@@ -70,7 +70,7 @@
 						hover
 					>
 					<template #cell(content)="data">
-						<router-link :to="{ path: `/notice/detail/${data.item.noticeSeq}` }">{{data.item.content}}</router-link>
+						<router-link :to="{ path: `/notice/detail/${data.item.noticeSeq}`}" @click.native="test()">{{data.item.content}}</router-link>
 					</template>
 					</b-table>
 				</section>
@@ -80,6 +80,7 @@
 </template>
 
 <script>
+import * as _ from 'lodash'
 export default {
 	data() {
 		return {
@@ -97,25 +98,92 @@ export default {
             ],
 			videoList: [],
 			imageList: [],
+			width: 0,
+            height: 0
 		}
 	},
 	created() {
-		this.$store.dispatch("notice/stateClear")
-		let pageable = {
-			pageNum: this.pageNum,
-			itemPerPage: this.itemPerPage
-		}
-		this.$store.dispatch("notice/getList", pageable).then(() => {
-			this.noticeList = this.$store.getters["notice/getNoticeList"];
-		})
-
-		this.$store.dispatch("media/getList").then(() => {
-			this.videoList = this.$store.getters["media/getvideoList"];
-			this.imageList = this.$store.getters["media/getimageList"];
-		})
+		this.getInitData();
+	},
+    mounted() {
+		let height = document.body.scrollHeight;
+		let cssStyle = document.createElement("style");
+		cssStyle.innerHTML=`body{height:${height}px}`
+		document.head.appendChild(cssStyle);
+    },
+	beforeDestroy() {
+		let cssStyle = document.createElement("style");
+		cssStyle.innerHTML=`body{height:100%}`
+		document.head.appendChild(cssStyle);
+		console.log('beforeDestroy...')
 	},
 	methods: {
-		
+		getInitData() {
+			this.$store.dispatch("notice/stateClear");
+			this.getNoticeList();
+			this.getMediaList();
+			this.locateMe();
+		},
+		getNoticeList() {
+			let pageable = {
+				pageNum: this.pageNum,
+				itemPerPage: this.itemPerPage
+			}
+			this.$store.dispatch("notice/getList", pageable).then(() => {
+				this.noticeList = this.$store.getters["notice/getNoticeList"];
+			})
+		},
+		getMediaList() {
+			this.$store.dispatch("media/getList").then(() => {
+				// this.videoList = this.$store.getters["media/getVideoList"];
+				// this.imageList = this.$store.getters["media/getImageList"];
+				this.videoList = this.makeRankList(this.$store.getters["media/getVideoList"]);
+				this.imageList = this.makeRankList(this.$store.getters["media/getImageList"]);
+			})
+		},
+		makeRankList(arg) {
+			let list = _.cloneDeep(arg);
+			let sortList = [];
+			if (list.length != 0) {
+				for (const index in list) {
+					let makeList = list[index];
+					if (makeList.sort) {
+						sortList.push(makeList);
+					}
+					if (sortList.length == 3) {
+						for (const idx in sortList) {
+							let sList = sortList[idx];
+							sList.mediaUrl = `${location.protocol}//${location.hostname}:${this.$portNum}/images/${sList.mediaUrl}`
+						}
+						return sortList;
+					}
+				}
+				return sortList;
+			}
+		},
+		async getLocationData() {
+			return new Promise((res, rej) => {
+				navigator.geolocation.getCurrentPosition(pos => {
+					res(pos);
+				}, err => {
+					rej(err);
+				});
+			});
+		},
+		async locateMe() {
+			let locationData = await this.getLocationData();
+			let location = {
+				x: '',
+				y: ''
+			}
+			location.x = locationData.coords.longitude;
+			location.y = locationData.coords.latitude;
+
+			this.$store.dispatch("kakao/getData", location)
+		},
+		test() {
+			window.scrollTo(0, 0);
+		}
 	},
 }
 </script>

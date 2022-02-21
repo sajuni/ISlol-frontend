@@ -18,6 +18,6 @@ export default {
             let layout = this.$route.meta.layout || 'DefaultLayout';
             return layout;
         }
-    }
+    },
 }
 </script>

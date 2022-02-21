@@ -15,7 +15,7 @@
 import TheLayout from '@/views/layouts/TheLayout.vue'
 
 export default {
-  components: { TheLayout }
+  components: { TheLayout },
 }
 </script>
 

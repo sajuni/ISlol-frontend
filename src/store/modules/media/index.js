@@ -1,22 +1,17 @@
 import { mediaApi } from "Api";
+import * as _ from 'lodash'
 
 const state = {
     videoList: [],
-    imageList: []
+    imageList: [],
 }
 
 const getters = {
-    getvideoList: state => {
+    getVideoList: state => {
         return state.videoList;
     },
-    getimageList: state => {
-        let imageList = state.imageList;
-        if (imageList.length != 0) {
-            imageList.forEach(v => {
-               v.mediaUrl = `${location.protocol}//${location.hostname}:8180/images/${v.mediaUrl}`
-            });
-        }
-        return imageList;
+    getImageList: state => {
+        return state.imageList;
     }
 }
 
@@ -40,6 +35,7 @@ const mutations = {
         }
     }
 }
+
 
 export default {
     namespaced: true,
