@@ -153,7 +153,7 @@ export default {
 					if (sortList.length == 3) {
 						for (const idx in sortList) {
 							let sList = sortList[idx];
-							sList.mediaUrl = `${location.protocol}//${location.hostname}:${this.$portNum}/images/${sList.mediaUrl}`
+							sList.mediaUrl = `${location.protocol}//${location.hostname}:${this.$portNum}/api/media/${sList.mediaUrl}`
 						}
 						return sortList;
 					}
