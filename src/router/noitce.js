@@ -1,5 +1,6 @@
 const Detail = () => import ("@/views/notice/Detail")
 const NoticeList = () => import('@/views/notice/List')
+const Save = () => import ("@/views/notice/Save")
 
 const notice = [
     {
@@ -19,6 +20,14 @@ const notice = [
             requiresAuth: true,
         }
 
+    },
+    {
+        path: "/notice/save",
+        name: "NoticeSave",
+        component: Save,
+        meta: {
+            requiresAuth: true,
+        }
     },
 ]
 

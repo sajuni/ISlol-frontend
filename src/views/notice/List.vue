@@ -2,7 +2,7 @@
     <div>
         <t-area>
             <template #title>공지사항</template>
-            <template #text>공지사항 입니다.</template>
+            <template #text>공지사항 목록</template>
             <template #content>
                 <b-table 
                     :items="paginatedData"
@@ -20,6 +20,7 @@
                         <col :style="{ width: '13%' }">
                      </template>
                 </b-table>
+                <b-button id="save_button" variant="primary" @click="goSave()">글쓰기</b-button>
             </template>
         </t-area>
         <div class="page_nation">
@@ -50,7 +51,7 @@ export default {
                 { content: "제목" }, 
                 { createdDate: "등록일" },
                 { 
-                    key: "member.memberName",
+                    key: "member.memberNick",
                     label: '작성자',
                 }
             ],
@@ -114,6 +115,9 @@ export default {
             let listSize = this.pageSize;
             let page = Math.floor(listLeng / listSize);
             return page;
+        },
+        goSave() {
+            this.$router.push( {name: "NoticeSave"} );
         }
     },
     computed: {

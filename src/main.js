@@ -11,7 +11,9 @@ import '@/plugins/global-components'
 import { store } from "@/store/store"
 import '@/assets/scss/_index.scss'
 import SimpleVueValidation from 'simple-vue-validator';
+import CKEditor from 'ckeditor4-vue';
 
+Vue.use(CKEditor);
 SimpleVueValidation.extendTemplates({ 
     required: '필수 입력 항목입니다.', 
     length: '길이가 {0} 이어야 합니다.', 

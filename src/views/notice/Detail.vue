@@ -8,8 +8,8 @@
                     <section class="detail_title"><b>{{notice.title}}</b></section>
                     <section class="detail_date"><span>{{notice.member.memberName}}</span>  <span>{{notice.createdDate}}</span></section>
                 </section>
-                <section class="detail_content">
-                    {{notice.content}}
+                <section class="detail_content" v-html="notice.content">
+                    <!-- {{notice.content}} -->
                 </section>
                 <b-button class="detail_button" variant="primary" @click="goList()">목록</b-button>
             </section>

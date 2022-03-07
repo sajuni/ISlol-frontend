@@ -13,6 +13,7 @@
     "axios": "^0.24.0",
     "bootstrap": "^5.1.0",
     "bootstrap-vue": "^2.21.2",
+    "ckeditor4-vue": "^1.5.1",
     "core-js": "^3.6.5",
     "esm": "^3.2.25",
     "jquery": "^1.9.1",

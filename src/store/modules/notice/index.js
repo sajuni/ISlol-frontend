@@ -33,6 +33,15 @@ const actions = {
     },
     stateClear(context, payload) {
         return context.commit('stateClear');
+    },
+    save(context, payload) {
+        return noticeApi.save(payload)
+            .then(res => {
+                context.commit("saveSuccess", res);
+            })
+            .catch(err => {
+                console.log("error", err);
+            })
     }
 }
 
@@ -58,6 +67,15 @@ const mutations = {
         state.noticeList = [];
         state.noticeListEndLength = 0;
     },
+    saveSuccess(state, res) {
+        if (res.resultCode === '0000') {
+            Vue.notify({
+                group: 'loggedIn',
+                type: 'success',
+                text: '공지사항 등록에 성공했습니다.'
+            });
+        }
+    }
 }
 
 export default {
