@@ -1,6 +1,7 @@
-const Detail = () => import ("@/views/notice/Detail")
+const NoticeDetail = () => import ("@/views/notice/Detail")
 const NoticeList = () => import('@/views/notice/List')
-const Save = () => import ("@/views/notice/Save")
+const NoticeSave = () => import("@/views/notice/Save")
+const NoticeUpdate = () => import("@/views/notice/Update")
 
 const notice = [
     {
@@ -14,8 +15,8 @@ const notice = [
     },
     {
         path: "/notice/detail/:id",
-        name: "Detail",
-        component: Detail,
+        name: "NoticeDetail",
+        component: NoticeDetail,
         meta: {
             requiresAuth: true,
         }
@@ -24,11 +25,19 @@ const notice = [
     {
         path: "/notice/save",
         name: "NoticeSave",
-        component: Save,
+        component: NoticeSave,
         meta: {
             requiresAuth: true,
         }
     },
+    {
+        path: "/notice/update/:id",
+        name: "NoticeUpdate",
+        component: NoticeUpdate,
+        meta: {
+            requiresAuth: true,
+        }
+    }
 ]
 
 export default notice;

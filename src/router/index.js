@@ -1,6 +1,6 @@
 import Vue from "vue";
 import Router from "vue-router";
-import Notice from "@/router/noitce";
+import Notice from "@/router/notice";
 import Admin from "@/router/admin";
 import Photo from '@/router/photo';
 

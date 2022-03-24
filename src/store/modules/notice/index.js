@@ -1,9 +1,11 @@
 import { noticeApi } from 'Api';
+import Vue from 'vue';
 
 const state = {
     noticeList: [],
     noticeListEndLength: 0,
-    currentPage: 1
+    currentPage: 1,
+    savedNoticeSeq: 0
 }
 
 const getters = {
@@ -18,6 +20,9 @@ const getters = {
     },
     getNoticeDetail: (state) => (seq) => {
         return state.noticeList.filter(v => seq.id == v.noticeSeq)[0];
+    },
+    getSavedNoticeSeq: state => {
+        return state.savedNoticeSeq;
     }
 }
 
@@ -42,17 +47,33 @@ const actions = {
             .catch(err => {
                 console.log("error", err);
             })
+    },
+    getDetail(context, id) {
+        return noticeApi.getDetail(id)
+            .then(res => {
+                context.commit('detailSuccess', res);
+            })
+            .catch(err => {
+                console.log('error', err);
+            })
     }
 }
 
 const mutations = {
     getListSuccess(state, res) {
         if (res.resultCode === '0000') {
+            // 세이브 시
+            if (res.data.noticeList.totalElements == state.noticeListEndLength + 1) {
+                state.noticeListEndLength++;
+                state.noticeList = res.data.noticeList.content;
+                return;
+            }
             state.noticeListEndLength = res.data.noticeList.totalElements;
             if (res.data.noticeList.totalPages == 1) {
                 state.noticeList.splice(0, state.noticeList.length, ...res.data.noticeList.content);
                 return;
             }
+            // 더 가져왔을 때(페이징)
             if (state.noticeList.length > 0) {
                 state.noticeList.push(...res.data.noticeList.content);
             } else {
@@ -74,7 +95,11 @@ const mutations = {
                 type: 'success',
                 text: '공지사항 등록에 성공했습니다.'
             });
+            state.savedNoticeSeq = res.data.saveEntity.noticeSeq;
         }
+    },
+    detailSuccess(state, res) {
+
     }
 }
 

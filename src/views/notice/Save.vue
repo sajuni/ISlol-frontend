@@ -29,8 +29,20 @@ export default {
     },
     methods: {
         save(){
-            this.$store.dispatch("notice/save", this.notice)
-        }
+            this.$store.dispatch("notice/save", this.notice).then(() => {
+                let currentLength = this.$store.getters['notice/getNoticeListEndLength'];
+                let pageable = {
+                    pageNum: 0,
+                    size: currentLength + 1
+                }
+                this.$store.dispatch("notice/getList", pageable).then(() => {
+                    let savedSeq = this.$store.getters['notice/getSavedNoticeSeq'];
+                    this.$router.push({
+                        path: `/notice/detail/${savedSeq}`,
+                    })
+                })
+            });
+        },
     },
     computed: {
         writer() {

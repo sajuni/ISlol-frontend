@@ -7,7 +7,10 @@ const noticeApi = {
         return common.post(common.config.NOTICE_URL, pageable);
     },
     save: (payload) => {
-        return common.post(common.config.NOTICE_URL + '/save', payload);
+        return common.post(common.config.NOTICE_URL + 'save', payload);
+    },
+    getDetail: (id) => {
+        return common.get(common.config.NOTICE_URL + `${id}`);
     }
 
 }

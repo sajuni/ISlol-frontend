@@ -59,7 +59,7 @@ export default {
             currentPage: 1,
             pageNum: 0,
             pageSize: 10,
-            itemPerPage: 100,
+            size: 100,
         }
     },
     mounted() {
@@ -93,7 +93,7 @@ export default {
                     this.pageNum++;
                     let pageable = {
                         pageNum: this.pageNum,
-                        itemPerPage: this.itemPerPage
+                        size: this.size
                     }
                     this.$store.dispatch("notice/getList", pageable);
                 }
@@ -104,7 +104,7 @@ export default {
             this.pageNum = 3;
             let pageable = {
                 pageNum: 0,
-                itemPerPage: maxListLeng
+                size: maxListLeng
             }
             this.$store.dispatch("notice/getList", pageable);
 
@@ -117,6 +117,7 @@ export default {
             return page;
         },
         goSave() {
+            this.$store.commit('notice/setCurrentPage', this.currentPage);
             this.$router.push( {name: "NoticeSave"} );
         }
     },

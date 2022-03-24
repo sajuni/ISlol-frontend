@@ -70,7 +70,7 @@
 						hover
 					>
 					<template #cell(content)="data">
-						<router-link :to="{ path: `/notice/detail/${data.item.noticeSeq}`}" @click.native="test()">{{data.item.content}}</router-link>
+						<router-link :to="{ path: `/notice/detail/${data.item.noticeSeq}`}" @click.native="scrollTop()">{{data.item.title}}</router-link>
 					</template>
 					</b-table>
 				</section>
@@ -85,7 +85,7 @@ export default {
 	data() {
 		return {
 			pageNum: 0,
-			itemPerPage: 100,
+			size: 100,
 			noticeList: [],
 			noticeHeader: [
                 { noticeSeq: "번호" }, 
@@ -115,7 +115,6 @@ export default {
 		let cssStyle = document.createElement("style");
 		cssStyle.innerHTML=`body{height:100%}`
 		document.head.appendChild(cssStyle);
-		console.log('beforeDestroy...')
 	},
 	methods: {
 		getInitData() {
@@ -127,7 +126,7 @@ export default {
 		getNoticeList() {
 			let pageable = {
 				pageNum: this.pageNum,
-				itemPerPage: this.itemPerPage
+				size: this.size
 			}
 			this.$store.dispatch("notice/getList", pageable).then(() => {
 				this.noticeList = this.$store.getters["notice/getNoticeList"];
@@ -181,7 +180,7 @@ export default {
 
 			this.$store.dispatch("kakao/getData", location)
 		},
-		test() {
+		scrollTop() {
 			window.scrollTo(0, 0);
 		}
 	},
