@@ -1,7 +1,7 @@
 <template>
-    <component :is="layout">
-        <slot />
-    </component>
+  <component :is="layout">
+    <slot />
+  </component>
 </template>
 
 <script>
@@ -11,13 +11,13 @@ import SignUp from '@/views/session/SignUp.vue';
 import Admin from '@/views/layouts/SideBar.vue';
 
 export default {
-    name: 'TheLayout',
-    components: { DefaultLayout, LoginOn, SignUp, Admin },
-    computed: {
-        layout() {
-            let layout = this.$route.meta.layout || 'DefaultLayout';
-            return layout;
-        }
+  name: 'TheLayout',
+  components: { DefaultLayout, LoginOn, SignUp, Admin },
+  computed: {
+    layout() {
+      let layout = this.$route.meta.layout || 'DefaultLayout';
+      return layout;
     },
-}
+  },
+};
 </script>

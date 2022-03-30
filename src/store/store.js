@@ -1,5 +1,5 @@
-import Vue from "vue";
-import Vuex from "vuex";
+import Vue from 'vue';
+import Vuex from 'vuex';
 import createPersistedState from 'vuex-persistedstate';
 
 // modules
@@ -15,7 +15,7 @@ export const store = new Vuex.Store({
     auth,
     notice,
     media,
-    kakao
+    kakao,
   },
-  plugins: [createPersistedState()]
-})
+  plugins: [createPersistedState()],
+});

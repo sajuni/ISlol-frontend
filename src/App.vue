@@ -3,8 +3,8 @@
     <the-layout>
       <router-view />
     </the-layout>
-    <notifications 
-      group="loggedIn" 
+    <notifications
+      group="loggedIn"
       position="top right"
       animation-type="velocity"
     />
@@ -12,10 +12,9 @@
 </template>
 
 <script>
-import TheLayout from '@/views/layouts/TheLayout.vue'
+import TheLayout from '@/views/layouts/TheLayout.vue';
 
 export default {
   components: { TheLayout },
-}
+};
 </script>
-
