@@ -1,0 +1,20 @@
+.login_form {
+  height: 100%;
+  padding: 0px !important;
+  display: grid;
+  place-items: center;
+  min-height: 100vh;
+}
+
+.login_form > .row {
+  width: 38%;
+}
+
+.find_wrap {
+  text-align: center;
+}
+
+.find_wrap > a {
+  text-decoration: none;
+  color: #888 !important;
+}
