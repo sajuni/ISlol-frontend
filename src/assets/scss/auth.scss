@@ -1,0 +1,31 @@
+// 중앙정렬 css
+.auth_outer_wrap {
+  height: 100%;
+  display: flex;
+}
+
+.auth_inner_wrap {
+  width: 20%;
+  margin: auto;
+  text-align: center;
+}
+//////////////////////
+
+.find_wrap {
+  text-align: center;
+}
+
+.find_wrap > a:nth-child(2) {
+  border-left: 1px solid #dadada;
+  border-right: 1px solid #dadada;
+}
+
+.find_wrap > a {
+  text-decoration: none;
+  color: #888 !important;
+}
+
+.auth_inner_wrap > a{
+  text-decoration: none;
+  color: #000 !important;
+}
