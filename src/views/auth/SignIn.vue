@@ -1,7 +1,7 @@
 <template>
   <div class="auth_outer_wrap">
     <div class="auth_inner_wrap">
-      <router-link :to="{ name: 'LoginOn' }"
+      <router-link class="logo" :to="{ name: 'LoginOn' }"
         ><h1 class="pb-15">회원가입</h1></router-link
       >
       <v-row>
