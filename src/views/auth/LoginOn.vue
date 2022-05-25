@@ -26,7 +26,7 @@
               <router-link class="px-5" :to="{ name: '' }"
                 >비밀번호 찾기</router-link
               >
-              <router-link class="pl-5" :to="{ name: 'SignIn' }"
+              <router-link class="pl-5" :to="{ name: 'SignUp' }"
                 >회원가입</router-link
               >
             </div>
