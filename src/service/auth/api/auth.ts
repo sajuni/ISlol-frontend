@@ -6,8 +6,10 @@ enum Api {
 }
 
 export const loginOn = (req: any): Promise<any> => {
+  console.log('ree', req);
   return defHttp.post<any>({
-    url: Api.Auth,
+    url: Api.Auth + '/signin',
+    params: { req },
   });
 };
 

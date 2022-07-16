@@ -12,6 +12,7 @@ const authStore = defineStore({
   actions: {
     getLoginOn(req: any): Promise<any> {
       this.loginInfo = {};
+      console.log(req);
       return loginOn(req);
     },
     async singUp(req: SignUpModel): Promise<any> {

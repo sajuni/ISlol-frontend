@@ -6,12 +6,14 @@
         <v-col>
           <v-form ref="form">
             <v-text-field
+              v-model="loginForm.id"
               class="mb-2"
               outlined
               label="아이디"
-              hide-details="auto"
+              hide-details="Zauto"
             ></v-text-field>
             <v-text-field
+              v-model="loginForm.pw"
               outlined
               label="비밀번호"
               type="password"
@@ -38,18 +40,18 @@
 </template>
 
 <script>
-import { defineComponent } from '@vue/composition-api';
+import { defineComponent, ref } from '@vue/composition-api';
 import { useAuthStore } from '@/service/auth/modules/auth';
 const authStore = useAuthStore();
 export default defineComponent({
   name: 'LoginOn',
   setup() {
+    const loginForm = ref({ id: '', pw: '' });
     const loginOn = async () => {
-      let tes = 'dd';
-      await authStore.getLoginOn(tes);
+      await authStore.getLoginOn(loginForm);
     };
 
-    return { loginOn };
+    return { loginOn, loginForm };
   },
 });
 </script>

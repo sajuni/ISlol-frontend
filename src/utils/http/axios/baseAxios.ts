@@ -27,6 +27,7 @@ export class BaseAxios {
   }
 
   private getTransform() {
+    debugger;
     const { transform } = this.options;
     return transform;
   }
@@ -173,6 +174,7 @@ export class BaseAxios {
     config: AxiosRequestConfig,
     options?: RequestOptions,
   ): Promise<T> {
+    debugger;
     // 1. axios config 설정
     let conf: CreateAxiosOptions = cloneDeep(config);
     const transform = this.getTransform();
