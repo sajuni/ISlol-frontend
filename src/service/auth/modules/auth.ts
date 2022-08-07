@@ -1,18 +1,18 @@
 import { defineStore } from 'pinia';
 import pinia from '@/store';
-import { loginOn, singUp } from '@/service/auth/api/auth';
-import { SignUpModel } from '../model/auth/SignUpModel';
-import { LoginModel } from '../model/auth/LoginModel';
-import { LoginStatus } from '../model/auth/LoginStatus';
+import { singIn, singUp } from '@/service/auth/api/auth';
+import { SignUpModel } from '../model/SignUpModel';
+import { SignInModel } from '../model/SignInModel';
+import { LoginStatus } from '../model/LoginStatus';
 
 interface authSate {
-  loginInfo: LoginStatus;
+  signInfo: LoginStatus;
 }
 
 const authStore = defineStore({
   id: 'auth',
   state: (): authSate => ({
-    loginInfo: {
+    signInfo: {
       name: '',
       nick: '',
       token: '',
@@ -22,19 +22,18 @@ const authStore = defineStore({
   }),
 
   actions: {
-    setLoginInfo(data: LoginStatus) {
-      this.loginInfo = data;
+    setSignInfo(data: LoginStatus) {
+      this.signInfo = data;
     },
 
-    async getLoginOn(req: LoginModel): Promise<LoginStatus> {
+    async getSignIn(req: SignInModel): Promise<void> {
       try {
-        const data = await loginOn(req);
-        this.setLoginInfo(data);
+        const data = await singIn(req);
+        console.log('data', data);
+        this.setSignInfo(data);
       } catch (err) {
         return Promise.reject(err);
       }
-
-      return loginOn(req);
     },
     async singUp(req: SignUpModel): Promise<any> {
       try {

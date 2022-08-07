@@ -1,6 +1,6 @@
 import Vue from 'vue';
 import VueRouter from 'vue-router';
-import LoginOn from '@/views/auth/LoginOn.vue';
+import SignIn from '@/views/auth/SignIn.vue';
 import auth from '@/router/routes/auth/index';
 
 Vue.use(VueRouter);
@@ -8,8 +8,8 @@ Vue.use(VueRouter);
 const routes = [
   {
     path: '/',
-    name: 'LoginOn',
-    component: LoginOn,
+    name: 'SignIn',
+    component: SignIn,
   },
   ...auth,
 ];

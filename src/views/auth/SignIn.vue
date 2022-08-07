@@ -6,19 +6,19 @@
         <v-col>
           <v-form ref="form">
             <v-text-field
-              v-model="loginForm.id"
+              v-model="signInForm.id"
               class="mb-2"
               outlined
               label="아이디"
               hide-details="Zauto"
             ></v-text-field>
             <v-text-field
-              v-model="loginForm.pw"
+              v-model="signInForm.pw"
               outlined
               label="비밀번호"
               type="password"
             ></v-text-field>
-            <v-btn block color="success" x-large dark @click="loginOn"
+            <v-btn block color="success" x-large dark @click="signIn"
               >로그인</v-btn
             >
             <div class="find_wrap mt-6">
@@ -39,19 +39,21 @@
   </div>
 </template>
 
-<script>
+<script lang="ts">
 import { defineComponent, reactive } from '@vue/composition-api';
 import { useAuthStore } from '@/service/auth/modules/auth';
+import { SignInModel } from '@/service/auth/model/SignInModel';
+
 const authStore = useAuthStore();
 export default defineComponent({
-  name: 'LoginOn',
+  name: 'SignIn',
   setup() {
-    const loginForm = reactive({ id: '', pw: '' });
-    const loginOn = async () => {
-      await authStore.getLoginOn(loginForm);
+    let signInForm: SignInModel = reactive({ id: '', pw: '' });
+    const signIn = async () => {
+      await authStore.getSignIn(signInForm);
     };
 
-    return { loginOn, loginForm };
+    return { signIn, signInForm };
   },
 });
 </script>

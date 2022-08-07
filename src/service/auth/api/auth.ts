@@ -1,12 +1,14 @@
 import { defHttp } from '@/utils/http/axios';
-import { SignUpModel } from '../model/auth/SignUpModel';
+import { LoginStatus } from '../model/LoginStatus';
+import { SignInModel } from '../model/SignInModel';
+import { SignUpModel } from '../model/SignUpModel';
 
 enum Api {
   Auth = 'auth',
 }
 
-export const loginOn = (req: any): Promise<any> => {
-  return defHttp.post<any>({
+export const singIn = (req: SignInModel): Promise<LoginStatus> => {
+  return defHttp.post<LoginStatus>({
     url: Api.Auth + '/signin',
     data: req,
   });

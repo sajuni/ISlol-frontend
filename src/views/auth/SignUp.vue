@@ -1,7 +1,7 @@
 <template>
   <div class="auth_outer_wrap">
     <div class="auth_inner_wrap">
-      <router-link class="logo" :to="{ name: 'LoginOn' }"
+      <router-link class="logo" :to="{ name: 'SignIn' }"
         ><h1 class="pb-15">회원가입</h1></router-link
       >
       <v-row>
@@ -66,15 +66,15 @@
   </div>
 </template>
 <script lang="ts">
-import { SignUpModel } from '@/service/auth/model/auth/SignUpModel';
+import { SignUpModel } from '@/service/auth/model/SignUpModel';
 import { useAuthStore } from '@/service/auth/modules/auth';
-import { defineComponent, ref } from '@vue/composition-api';
+import { defineComponent, reactive } from '@vue/composition-api';
 
 const authStore = useAuthStore();
 export default defineComponent({
   name: 'SignUp',
   setup() {
-    const signUpInfo = ref<SignUpModel>({
+    let signUpInfo: SignUpModel = reactive({
       id: '',
       pw: '',
       name: '',
@@ -84,7 +84,7 @@ export default defineComponent({
     });
 
     const signUp = async () => {
-      await authStore.singUp(signUpInfo.value);
+      await authStore.singUp(signUpInfo);
     };
 
     return { signUpInfo, signUp, authStore };
