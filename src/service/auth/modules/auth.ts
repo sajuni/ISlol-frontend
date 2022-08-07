@@ -1,18 +1,39 @@
 import { defineStore } from 'pinia';
 import pinia from '@/store';
 import { loginOn, singUp } from '@/service/auth/api/auth';
-import { SignUpModel } from '../model/SignUpModel';
+import { SignUpModel } from '../model/auth/SignUpModel';
+import { LoginModel } from '../model/auth/LoginModel';
+import { LoginStatus } from '../model/auth/LoginStatus';
+
+interface authSate {
+  loginInfo: LoginStatus;
+}
 
 const authStore = defineStore({
   id: 'auth',
-  state: () => ({
-    loginInfo: {},
+  state: (): authSate => ({
+    loginInfo: {
+      name: '',
+      nick: '',
+      token: '',
+      refreshToken: '',
+      roles: '',
+    },
   }),
 
   actions: {
-    getLoginOn(req: any): Promise<any> {
-      this.loginInfo = {};
-      console.log(req);
+    setLoginInfo(data: LoginStatus) {
+      this.loginInfo = data;
+    },
+
+    async getLoginOn(req: LoginModel): Promise<LoginStatus> {
+      try {
+        const data = await loginOn(req);
+        this.setLoginInfo(data);
+      } catch (err) {
+        return Promise.reject(err);
+      }
+
       return loginOn(req);
     },
     async singUp(req: SignUpModel): Promise<any> {

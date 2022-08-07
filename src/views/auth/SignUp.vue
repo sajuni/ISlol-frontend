@@ -66,7 +66,7 @@
   </div>
 </template>
 <script lang="ts">
-import { SignUpModel } from '@/service/auth/model/SignUpModel';
+import { SignUpModel } from '@/service/auth/model/auth/SignUpModel';
 import { useAuthStore } from '@/service/auth/modules/auth';
 import { defineComponent, ref } from '@vue/composition-api';
 
@@ -75,12 +75,12 @@ export default defineComponent({
   name: 'SignUp',
   setup() {
     const signUpInfo = ref<SignUpModel>({
-      memberId: '',
-      memberPw: '',
-      memberName: '',
-      memberEmail: '',
-      memberNick: '',
-      memberTel: '',
+      id: '',
+      pw: '',
+      name: '',
+      email: '',
+      nick: '',
+      mobileNum: '',
     });
 
     const signUp = async () => {

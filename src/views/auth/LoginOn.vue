@@ -40,13 +40,13 @@
 </template>
 
 <script>
-import { defineComponent, ref } from '@vue/composition-api';
+import { defineComponent, reactive } from '@vue/composition-api';
 import { useAuthStore } from '@/service/auth/modules/auth';
 const authStore = useAuthStore();
 export default defineComponent({
   name: 'LoginOn',
   setup() {
-    const loginForm = ref({ id: '', pw: '' });
+    const loginForm = reactive({ id: '', pw: '' });
     const loginOn = async () => {
       await authStore.getLoginOn(loginForm);
     };

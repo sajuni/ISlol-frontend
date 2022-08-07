@@ -1,13 +1,18 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
+import type { AxiosError, AxiosResponse } from 'axios';
+import type { RequestOptions, Result } from './types/axios';
+import type { AxiosTransform, CreateAxiosOptions } from './axiosTransform';
 import { BaseAxios } from './baseAxios';
-import _ from 'lodash-es';
-import { ContentTypeEnum, RequestEnum, ResultEnum } from './enum/httpEnum';
-import { AxiosTransform, CreateAxiosOptions } from './axiosTransform';
-import { AxiosResponse } from 'axios';
-import { RequestOptions, Result } from './types/axios';
+import { RequestEnum, ContentTypeEnum, ResultEnum } from './enum/httpEnum';
 import { isString } from '@/utils/is';
+import { deepMerge } from '@/utils';
 import { formatRequestDate } from './helper';
-
-const tansform: AxiosTransform = {
+import { Recordable } from '@/types';
+import router from '@/router';
+/**
+ * @description: AxiosTransform
+ */
+const transform: AxiosTransform = {
   /**
    * @description: transformRequestHook
    */
@@ -30,7 +35,7 @@ const tansform: AxiosTransform = {
     //console.log('header resultCode' + data.code + ' ' + data.message);
 
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    const { code, msg, ...body } = data;
+    const { code, message, ...body } = data;
 
     // TODO 실패 코드 응답 처리
     const hasSuccess = data && code === ResultEnum.SUCCESS;
@@ -44,6 +49,7 @@ const tansform: AxiosTransform = {
   beforeRequestHook: (config, options) => {
     const { apiUrl, joinPrefix, joinParamsToUrl, formatDate, urlPrefix } =
       options;
+
     if (joinPrefix) {
       config.url = `${urlPrefix}${config.url}`;
     }
@@ -89,30 +95,43 @@ const tansform: AxiosTransform = {
     // logger.debug('beforeRequestHook');
     return config;
   },
+
+  /**
+   * @description: responseInterceptors
+   */
+  responseInterceptors: (res: AxiosResponse<any>) => {
+    // logger.debug('responseInterceptors start');
+    // logger.debug('responseInterceptors end');
+    return res;
+  },
 };
+
 /**
  * @description: axios 생성
  */
 function createAxios(opt?: Partial<CreateAxiosOptions>) {
   return new BaseAxios(
-    _.merge({
-      authenticationScheme: 'Bearer',
-      timeout: 10 * 1000,
-      headers: { 'Content-Type': ContentTypeEnum.JSON },
-      tansform,
-      baseURL: '/api',
-      requestOptions: {
-        joinPrefix: false,
-        isReturnNativeResponse: false,
-        isTransformResponse: true,
-        joinParamsToUrl: false,
-        formatDate: true,
-        errorMessageMode: 'message',
-        urlPrefix: 'api',
-        joinTime: true,
-        ignoreCancelToken: true,
+    deepMerge(
+      {
+        authenticationScheme: 'Bearer',
+        timeout: 10 * 1000,
+        headers: { 'Content-Type': ContentTypeEnum.JSON },
+        transform,
+        baseURL: '/api',
+        requestOptions: {
+          joinPrefix: false,
+          isReturnNativeResponse: false,
+          isTransformResponse: true,
+          joinParamsToUrl: false,
+          formatDate: true,
+          errorMessageMode: 'message',
+          urlPrefix: 'api',
+          joinTime: true,
+          ignoreCancelToken: true,
+        },
       },
-    }),
+      opt || {},
+    ),
   );
 }
 /**
