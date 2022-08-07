@@ -28,11 +28,12 @@ export interface RequestOptions {
 
 // API response HEAD. http의 header가 아님. request 의 성공/실패코드 및 메세지
 export interface head {
-  code: number;
-  msg: string;
+  resultCode: string;
+  resultMessage: string;
 }
 
 // API response
-export interface Result<T = unknown> extends head {
-  [key: string]: T;
+export interface Result<T = unknown> {
+  body: T;
+  head: head;
 }

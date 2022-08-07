@@ -33,17 +33,16 @@ const transform: AxiosTransform = {
     }
 
     //console.log('header resultCode' + data.code + ' ' + data.message);
-
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    const { code, message, ...body } = data;
-
+    const { head, ...body } = data;
     // TODO 실패 코드 응답 처리
-    const hasSuccess = data && code === ResultEnum.SUCCESS;
+    const hasSuccess =
+      data && Number(head.resultMessage) === ResultEnum.SUCCESS;
     if (hasSuccess) {
       return body;
     }
 
-    return res;
+    return res.data;
   },
 
   beforeRequestHook: (config, options) => {
