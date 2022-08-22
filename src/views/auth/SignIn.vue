@@ -50,7 +50,7 @@ export default defineComponent({
   setup() {
     let signInForm: SignInModel = reactive({ id: '', pw: '' });
     const signIn = async () => {
-      await authStore.getSignIn(signInForm);
+      await authStore.signIn(signInForm);
     };
 
     return { signIn, signInForm };

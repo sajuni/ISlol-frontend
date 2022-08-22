@@ -13,11 +13,16 @@ const authStore = defineStore({
   id: 'auth',
   state: (): authSate => ({
     signInfo: {
+      id: '',
+      email: '',
+      mobileNum: '',
+      seq: '',
+      type: '',
       name: '',
       nick: '',
       token: '',
       refreshToken: '',
-      roles: '',
+      roles: [],
     },
   }),
 
@@ -26,11 +31,11 @@ const authStore = defineStore({
       this.signInfo = data;
     },
 
-    async getSignIn(req: SignInModel): Promise<void> {
+    async signIn(req: SignInModel): Promise<LoginStatus> {
       try {
         const data = await singIn(req);
-        console.log('data', data);
         this.setSignInfo(data);
+        return data;
       } catch (err) {
         return Promise.reject(err);
       }
