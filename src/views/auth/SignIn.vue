@@ -52,7 +52,6 @@ export default defineComponent({
     const signIn = async () => {
       await authStore.signIn(signInForm);
     };
-
     return { signIn, signInForm };
   },
 });

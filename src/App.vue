@@ -1,17 +1,18 @@
 <template>
   <v-app>
-    <v-main>
+    <TheLayout>
       <router-view />
-    </v-main>
+    </TheLayout>
   </v-app>
 </template>
 
-<script>
-export default {
-  name: 'App',
+<script lang="ts">
+import { defineComponent } from '@vue/composition-api';
+import TheLayout from '@/views/common/layout/TheLayout.vue';
 
-  data: () => ({
-    //
-  }),
-};
+export default defineComponent({
+  name: 'App',
+  components: { TheLayout },
+  setup() {},
+});
 </script>

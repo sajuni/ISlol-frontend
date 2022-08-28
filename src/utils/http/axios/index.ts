@@ -7,7 +7,6 @@ import { RequestEnum, ContentTypeEnum, ResultEnum } from './enum/httpEnum';
 import { isString } from '@/utils/is';
 import { deepMerge } from '@/utils';
 import { formatRequestDate } from './helper';
-import { Recordable } from '@/types';
 import router from '@/router';
 /**
  * @description: AxiosTransform
@@ -23,6 +22,11 @@ const transform: AxiosTransform = {
     const { isReturnNativeResponse } = options;
 
     const { data } = res;
+
+    if (res.config.authenticationScheme == 'opgg' && res.status == 200) {
+      return res;
+    }
+
     if (!data) {
       // return '[HTTP] Request has no return value';
     }
