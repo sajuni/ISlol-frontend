@@ -1,4 +1,4 @@
-export interface SoloRankHeader {
+export interface TeamRankHeader {
   text: string;
   img: string;
   tier: string;
