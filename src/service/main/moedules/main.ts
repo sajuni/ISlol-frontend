@@ -65,6 +65,12 @@ const mainStore = defineStore({
         return Promise.reject(err);
       }
     },
+    getSoloRankHeader(): SoloRankHeader {
+      return this.soloRankHeader;
+    },
+    getTeamRankHeader(): TeamRankHeader {
+      return this.teamRankHeader;
+    },
   },
 });
 
