@@ -1,27 +1,18 @@
 <template>
-  <v-card height="40px">
-    <v-bottom-navigation v-model="bottomNav" color="primary">
-      <v-btn bottomNav="home">
-        <span>홈</span>
-      </v-btn>
-
-      <v-btn bottomNav="notice">
-        <span>공지사항</span>
-      </v-btn>
-
-      <v-btn bottomNav="replay">
-        <span>방송 다시보기</span>
-      </v-btn>
-
-      <v-btn bottomNav="photo">
-        <span>사진첩</span>
-      </v-btn>
-
-      <v-btn bottomNav="top">
-        <span>TOP랭킹</span>
-      </v-btn>
-    </v-bottom-navigation>
-  </v-card>
+  <div class="header">
+    <div class="login-from mt-5">
+      <v-btn small>로그인</v-btn>
+    </div>
+    <div class="container">
+      <v-tabs dark>
+        <v-tab>홈</v-tab>
+        <v-tab>공지사항</v-tab>
+        <v-tab>방송 다시보기</v-tab>
+        <v-tab>사진첩</v-tab>
+        <v-tab>TOP랭킹</v-tab>
+      </v-tabs>
+    </div>
+  </div>
 </template>
 
 <script>
@@ -38,7 +29,11 @@ export default defineComponent({
 
 <style scoped>
 .header {
-  width: 100%;
-  height: 48px;
+  background-color: #1e1e1e;
+}
+.login-from {
+  display: flex;
+  float: right;
+  margin-right: 20px;
 }
 </style>
