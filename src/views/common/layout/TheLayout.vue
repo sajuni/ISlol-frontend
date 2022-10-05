@@ -18,7 +18,7 @@ export default defineComponent({
   setup() {
     const { proxy } = getCurrentInstance() as ComponentInternalInstance;
     const router = proxy.$router;
-    console.log(router.currentRoute.meta?.layout);
+
     const layout = computed(() => {
       return router.currentRoute.meta?.layout || 'UserLayout';
     });

@@ -34,6 +34,6 @@ export default defineComponent({
 .login-from {
   display: flex;
   float: right;
-  margin-right: 20px;
+  margin-right: 59px;
 }
 </style>

@@ -1,6 +1,8 @@
 import pinia from '@/store';
 import { defineStore } from 'pinia';
 import { search } from '../api/main';
+import { Ratio } from '../model/Ratio';
+import { RatioList } from '../model/RatioList';
 import { SoloRankHeader } from '../model/SoloRankHeader';
 import { TeamRankHeader } from '../model/TeamRankHeader';
 
@@ -9,6 +11,7 @@ const cheerio = require('cheerio');
 interface HistorySearchState {
   soloRankHeader: SoloRankHeader;
   teamRankHeader: TeamRankHeader;
+  ratioInfo: RatioList;
 }
 
 const mainStore = defineStore({
@@ -29,6 +32,9 @@ const mainStore = defineStore({
       img: '',
       ratio: '',
       lp: '',
+    },
+    ratioInfo: {
+      ratioList: [],
     },
   }),
 
@@ -60,6 +66,20 @@ const mainStore = defineStore({
           }
         });
 
+        const rankRatio = $('.e1g7spwk3 .champion-box');
+        this.ratioInfo.ratioList = [];
+        rankRatio.each((i: number, el: string) => {
+          const ratio = {} as Ratio;
+          ratio.img = $(el).find('.face img').attr('src');
+          ratio.name = $(el).find('.name').text();
+          ratio.cs = $(el).find('.cs').text();
+          ratio.kda = $(el).find('.e1g7spwk1').text();
+          ratio.detail = $(el).find('.detail').text();
+          ratio.played = $(el).find('.e1g7spwk0').text();
+          ratio.count = $(el).find('.count').text();
+          this.ratioInfo.ratioList.push(ratio);
+        });
+
         return data;
       } catch (err) {
         return Promise.reject(err);
@@ -70,6 +90,9 @@ const mainStore = defineStore({
     },
     getTeamRankHeader(): TeamRankHeader {
       return this.teamRankHeader;
+    },
+    getRatioList(): Array<Ratio> {
+      return this.ratioInfo.ratioList;
     },
   },
 });

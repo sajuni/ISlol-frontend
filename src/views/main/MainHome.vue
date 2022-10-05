@@ -13,31 +13,9 @@
         </template>
       </v-text-field>
     </div>
-    <aside class="rank">
-      <div class="sr">
-        <div class="sr-header">솔로랭크</div>
-        <div class="rk-content">
-          <img :src="soloRankHeader.img" />
-          <div>
-            <h1>{{ soloRankHeader.tier }}</h1>
-            {{ soloRankHeader.lp }}
-          </div>
-          <div>
-            {{ soloRankHeader.winLose }}<br />{{ soloRankHeader.ratio }}
-          </div>
-        </div>
-      </div>
-      <div class="tr">
-        <div class="tr-header">자유랭크</div>
-        <div class="rk-content">
-          <img :src="teamRankHeader.img" />
-          {{ teamRankHeader.tier }}
-          {{ teamRankHeader.lp }}
-          {{ teamRankHeader.winLose }}
-          {{ teamRankHeader.ratio }}
-        </div>
-      </div>
-    </aside>
+    <RatioSide :searchVal="searchVal" />
+    <div class="list-content">테스트중</div>
+    <div class="list-content">테스트중</div>
     <article>
       <div class="flexbox">
         <div class="item">content1</div>
@@ -50,34 +28,21 @@
 </template>
 
 <script lang="ts">
-import {
-  computed,
-  ComputedRef,
-  defineComponent,
-  ref,
-} from '@vue/composition-api';
+import { defineComponent, ref } from '@vue/composition-api';
 import { useMainStroe } from '@/service/main/moedules/main';
-import { TeamRankHeader } from '@/service/main/model/TeamRankHeader';
-import { SoloRankHeader } from '@/service/main/model/SoloRankHeader';
+import RatioSide from '@/views/main/component/RatioSide.vue';
 
 const mainStore = useMainStroe();
 export default defineComponent({
   name: 'MainHome',
+  components: { RatioSide },
   setup() {
     const searchVal = ref('');
     const search = async () => {
       await mainStore.search(searchVal.value);
     };
 
-    let soloRankHeader: ComputedRef<SoloRankHeader> = computed(() => {
-      return mainStore.getSoloRankHeader();
-    });
-
-    let teamRankHeader: ComputedRef<TeamRankHeader> = computed(() => {
-      return mainStore.getTeamRankHeader();
-    });
-
-    return { searchVal, search, soloRankHeader, teamRankHeader };
+    return { searchVal, search };
   },
 });
 </script>
@@ -86,10 +51,11 @@ export default defineComponent({
 .center-logo {
   text-align: center;
 }
+.list-content {
+  display: inline-block;
+  vertical-align: top;
+}
 .search_area {
   max-width: 800px;
-}
-.rk-content {
-  display: flex;
 }
 </style>
