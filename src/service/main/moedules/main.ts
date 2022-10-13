@@ -3,6 +3,8 @@ import { defineStore } from 'pinia';
 import { search } from '../api/main';
 import { Ratio } from '../model/Ratio';
 import { RatioList } from '../model/RatioList';
+import { RatioMain } from '../model/RatioMain';
+import { RatioMainList } from '../model/RatioMainList';
 import { SoloRankHeader } from '../model/SoloRankHeader';
 import { TeamRankHeader } from '../model/TeamRankHeader';
 
@@ -11,7 +13,8 @@ const cheerio = require('cheerio');
 interface HistorySearchState {
   soloRankHeader: SoloRankHeader;
   teamRankHeader: TeamRankHeader;
-  ratioInfo: RatioList;
+  ratioList: RatioList;
+  ratioMainList: RatioMainList;
 }
 
 const mainStore = defineStore({
@@ -33,13 +36,16 @@ const mainStore = defineStore({
       ratio: '',
       lp: '',
     },
-    ratioInfo: {
-      ratioList: [],
+    ratioList: {
+      ratioInfo: [],
+    },
+    ratioMainList: {
+      ratioMainListInfo: [],
     },
   }),
 
   actions: {
-    async search(searchVal: string): Promise<any> {
+    async search(searchVal: string, flag?: boolean): Promise<any> {
       try {
         const data = await search(searchVal);
         const $ = cheerio.load(data.data);
@@ -67,17 +73,71 @@ const mainStore = defineStore({
         });
 
         const rankRatio = $('.e1g7spwk3 .champion-box');
-        this.ratioInfo.ratioList = [];
+        this.ratioList.ratioInfo = [];
         rankRatio.each((i: number, el: string) => {
           const ratio = {} as Ratio;
-          ratio.img = $(el).find('.face img').attr('src');
-          ratio.name = $(el).find('.name').text();
-          ratio.cs = $(el).find('.cs').text();
-          ratio.kda = $(el).find('.e1g7spwk1').text();
-          ratio.detail = $(el).find('.detail').text();
-          ratio.played = $(el).find('.e1g7spwk0').text();
-          ratio.count = $(el).find('.count').text();
-          this.ratioInfo.ratioList.push(ratio);
+          const e = $(el);
+          ratio.img = e.find('.face img').attr('src');
+          ratio.name = e.find('.name').text();
+          ratio.cs = e.find('.cs').text();
+          ratio.kda = e.find('.e1g7spwk1').text();
+          ratio.detail = e.find('.detail').text();
+          ratio.played = e.find('.e1g7spwk0').text();
+          ratio.count = e.find('.count').text();
+          this.ratioList.ratioInfo.push(ratio);
+        });
+
+        const ratioList = $('.e1r5v5160 .e1iiyghw3');
+        this.ratioMainList.ratioMainListInfo = [];
+        ratioList.each((i: number, el: string) => {
+          const ratio = {} as RatioMain;
+          const e = $(el);
+          ratio.type = e.find('.type').text();
+          ratio.timeStamp = e.find('.time-stamp').text();
+          ratio.result = e.find('.result').text();
+          ratio.length = e.find('.length').text();
+          ratio.championImg = e.find('.icon img').attr('src');
+          const spells = e.find('.spell img');
+          const spellArray: string[] = [];
+          spells.each((i: number, el: any) => {
+            spellArray.push(el.attribs.src);
+          });
+          ratio.spells = spellArray;
+          const runes = e.find('.rune img');
+          const runeArray: string[] = [];
+          runes.each((i: number, el: any) => {
+            runeArray.push(el.attribs.src);
+          });
+          ratio.runes = runeArray;
+          ratio.kda = e.find('.k-d-a').text();
+          ratio.ratio = e.find('.ratio').text();
+          this.ratioMainList.ratioMainListInfo.push(ratio);
+
+          const items = e.find('.items li img');
+          const itemArray: string[] = new Array(6);
+          items.each((i: number, el: any) => {
+            itemArray[i] = el.attribs.src;
+            //itemArray.push(el.attribs.src);
+          });
+          ratio.items = itemArray;
+          ratio.ward = e.find('.items .ward img').attr('src');
+          ratio.multiKill = e.find('.multi-kill').text();
+          ratio.badge = e.find('.badge').text();
+          ratio.pKill = e.find('.p-kill').text();
+          ratio.controllWard = e.find('.stats .ward').text();
+          ratio.cs = e.find('.cs').text();
+          ratio.averageTier = e.find('.average-tier').text();
+
+          const participants = e.find('.e1iiyghw1');
+          const playerArray: Object[] = [];
+          participants.each((i: number, el: any) => {
+            const player: any = {};
+            player.img = el.children[0].children[0].attribs.src;
+            player.name = el.children[1].children[0].children[0].data;
+            playerArray.push(player);
+          });
+
+          ratio.participants = playerArray;
         });
 
         return data;
@@ -92,7 +152,10 @@ const mainStore = defineStore({
       return this.teamRankHeader;
     },
     getRatioList(): Array<Ratio> {
-      return this.ratioInfo.ratioList;
+      return this.ratioList.ratioInfo;
+    },
+    getRatioMainList(): Array<RatioMain> {
+      return this.ratioMainList.ratioMainListInfo;
     },
   },
 });

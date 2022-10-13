@@ -52,7 +52,7 @@
             <div class="detail">{{ item.detail }}</div>
           </div>
           <div class="played pr-3">
-            <div class="retio">{{ item.played }}</div>
+            <div class="ratio">{{ item.played }}</div>
             <div class="count">{{ item.count }}</div>
           </div>
         </div>
@@ -176,7 +176,7 @@ export default defineComponent({
   width: 88px;
   text-align: right;
 }
-.played .retio {
+.played .ratio {
   font-weight: 500;
 }
 .played .count {

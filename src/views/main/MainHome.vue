@@ -13,7 +13,10 @@
         </template>
       </v-text-field>
     </div>
-    <RatioSide :searchVal="searchVal" />
+    <div class="d-flex">
+      <ratio-side :searchVal="searchVal" />
+      <main-list />
+    </div>
     <div class="list-content">테스트중</div>
     <div class="list-content">테스트중</div>
     <article>
@@ -31,11 +34,12 @@
 import { defineComponent, ref } from '@vue/composition-api';
 import { useMainStroe } from '@/service/main/moedules/main';
 import RatioSide from '@/views/main/component/RatioSide.vue';
+import MainList from '@/views/main/component/MainList.vue';
 
 const mainStore = useMainStroe();
 export default defineComponent({
   name: 'MainHome',
-  components: { RatioSide },
+  components: { RatioSide, MainList },
   setup() {
     const searchVal = ref('');
     const search = async () => {
