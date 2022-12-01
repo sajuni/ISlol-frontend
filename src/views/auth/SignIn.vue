@@ -1,9 +1,9 @@
 <template>
-  <div class="auth_outer_wrap">
-    <div class="auth_inner_wrap">
+  <v-container>
+    <div class="auth_inner_wrap" :style="height">
       <h1 class="pb-15">로그인</h1>
-      <v-row>
-        <v-col>
+      <v-row justify="center">
+        <v-col sm="7" md="6" lg="5" xl="3">
           <v-form ref="form">
             <v-text-field
               v-model="signInForm.id"
@@ -36,11 +36,16 @@
         </v-col>
       </v-row>
     </div>
-  </div>
+  </v-container>
 </template>
 
 <script lang="ts">
-import { defineComponent, reactive } from '@vue/composition-api';
+import {
+  defineComponent,
+  onMounted,
+  reactive,
+  ref,
+} from '@vue/composition-api';
 import { useAuthStore } from '@/service/auth/modules/auth';
 import { SignInModel } from '@/service/auth/model/SignInModel';
 
@@ -52,7 +57,11 @@ export default defineComponent({
     const signIn = async () => {
       await authStore.signIn(signInForm);
     };
-    return { signIn, signInForm };
+    let height = ref('');
+    onMounted(() => {
+      height.value = `padding-top:${document.body.clientHeight / 5}px`;
+    });
+    return { signIn, signInForm, height };
   },
 });
 </script>
