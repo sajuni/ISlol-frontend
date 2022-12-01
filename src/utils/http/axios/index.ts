@@ -20,12 +20,11 @@ const transform: AxiosTransform = {
     options: RequestOptions,
   ) => {
     const { isReturnNativeResponse } = options;
-
     const { data } = res;
 
-    if (res.config.authenticationScheme == 'opgg' && res.status == 200) {
-      return res;
-    }
+    // if (res.status == 200) {
+    //   return data.body;
+    // }
 
     if (!data) {
       // return '[HTTP] Request has no return value';
